@@ -1,39 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 declare var $: any;
 declare var jQuery: any;
 declare var autosize: any;
 declare var Ladda: any;
 declare var Chartist: any;
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'cat-page',
+  templateUrl: './alpha.html'
 })
-export class DashboardComponent implements OnInit {
 
-  constructor() {
-  }
-
+export class DashboardsAlpha implements OnInit {
   ngOnInit() {
 
-
-    $(function () {
+    $( function() {
 
       ///////////////////////////////////////////////////////////
       // load flappy bird
-      $(function () {
+      $(function(){
 
         function loadGame() {
           $('#hidden-game').attr('src', $('#hidden-game').attr('load-src'));
         }
 
-        $('#duck-game .card-header').on('dblclick', function () {
+        $('#duck-game .card-header').on('dblclick', function(){
           loadGame();
         });
 
-        $('#duck-game .cat__core__sortable__uncollapse').on('click', function () {
+        $('#duck-game .cat__core__sortable__uncollapse').on('click', function(){
           loadGame();
         });
 
@@ -45,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
       ///////////////////////////////////////////////////////////
       // jquery ui sortable
-      $('#left-col, #right-col, #bottom-col').each(function () {
+      $('#left-col, #right-col, #bottom-col').each(function(){
         $(this).sortable({
           // connect left and right containers
           connectWith: '.cat__core__sortable',
@@ -62,7 +56,7 @@ export class DashboardComponent implements OnInit {
             if (orderLs) {
               var order = orderLs.split(',');
 
-              $.each(order, function (key, val) {
+              $.each(order, function(key, val){
                 var el = $('[order-id=' + val + ']');
                 that.append(el);
               });
@@ -85,7 +79,7 @@ export class DashboardComponent implements OnInit {
 
       ///////////////////////////////////////////////////////////
       // reset dashboard
-      $('.reset-button').on('click', function () {
+      $('.reset-button').on('click', function(){
         localStorage.removeItem('order-left-col');
         localStorage.removeItem('order-right-col');
         localStorage.removeItem('order-bottom-col');
@@ -96,16 +90,16 @@ export class DashboardComponent implements OnInit {
 
       ///////////////////////////////////////////////////////////
       // card controls
-      $('.cat__core__sortable__collapse, .cat__core__sortable__uncollapse').on('click', function () {
+      $('.cat__core__sortable__collapse, .cat__core__sortable__uncollapse').on('click', function(){
         $(this).closest('.card').toggleClass('cat__core__sortable__collapsed');
       });
-      $('.cat__core__sortable__close').on('click', function () {
+      $('.cat__core__sortable__close').on('click', function(){
         $(this).closest('.card').remove();
         $('.tooltip').remove();
       });
 
       // header double click
-      $('.cat__core__sortable .card-header').on('dblclick', function () {
+      $('.cat__core__sortable .card-header').on('dblclick', function() {
         $(this).closest('.card').toggleClass('cat__core__sortable__collapsed');
       });
 
@@ -133,7 +127,7 @@ export class DashboardComponent implements OnInit {
         },
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        viewRender: function (view, element) {
+        viewRender: function(view, element) {
           if (!(/Mobi/.test(navigator.userAgent)) && jQuery().jScrollPane) {
             $('.fc-scroller').jScrollPane({
               autoReinitialise: true,
@@ -167,7 +161,7 @@ export class DashboardComponent implements OnInit {
             className: 'fc-event-danger'
           }
         ],
-        eventClick: function (calEvent, jsEvent, view) {
+        eventClick: function(calEvent, jsEvent, view) {
           if (!$(this).hasClass('event-clicked')) {
             $('.fc-event').removeClass('event-clicked');
             $(this).addClass('event-clicked');
@@ -177,7 +171,7 @@ export class DashboardComponent implements OnInit {
 
       ///////////////////////////////////////////////////////////
       // ladda buttons
-      Ladda.bind('.ladda-button', {timeout: 2000});
+      Ladda.bind( '.ladda-button', { timeout: 2000 } );
 
       ///////////////////////////////////////////////////////////
       // chart1
@@ -217,7 +211,7 @@ export class DashboardComponent implements OnInit {
           ["", {
             seriesBarDistance: 5,
             axisX: {
-              labelInterpolationFnc: function (value) {
+              labelInterpolationFnc: function(value) {
                 return value[0]
               }
             }
@@ -230,7 +224,7 @@ export class DashboardComponent implements OnInit {
       ///////////////////////////////////////////////////////////
       // custom scroll
       if (!(/Mobi/.test(navigator.userAgent)) && jQuery().jScrollPane) {
-        $('.custom-scroll').each(function () {
+        $('.custom-scroll').each(function() {
           $(this).jScrollPane({
             contentWidth: '100%',
             autoReinitialise: true,
@@ -238,9 +232,9 @@ export class DashboardComponent implements OnInit {
           });
           var api = $(this).data('jsp'),
             throttleTimeout;
-          $(window).bind('resize', function () {
+          $(window).bind('resize', function() {
             if (!throttleTimeout) {
-              throttleTimeout = setTimeout(function () {
+              throttleTimeout = setTimeout(function() {
                 api.reinitialise();
                 throttleTimeout = null;
               }, 50);
@@ -280,8 +274,8 @@ export class DashboardComponent implements OnInit {
         grid_num: 10
       });
 
-    });
+    } );
 
   }
-
 }
+
