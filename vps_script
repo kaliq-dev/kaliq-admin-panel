@@ -1,0 +1,25 @@
+### Deployment steps to follow:
+
+1) Build with ng-cli by `npm build --prod`
+
+2) Contents will appear in ./dist folder. Magically !!
+
+3) Take a deep breadth and upload the contents of the ./dist folder on the VPS
+
+   by entering the following cmds:
+
+    $ cd /KALIQ/admin-panel
+    $ rsync -r ./dist/ root@45.76.184.39:/home/KALIQ/admin-panel/
+
+4) DAMN !! All is Cool
+
+
+### Run on the VPS
+
+1) Run the following cmds:
+
+  (Running on port 8080 as daemon )
+  $ http-server ./admin-panel -p 8080 &
+
+2) You are a magicial !!
+
