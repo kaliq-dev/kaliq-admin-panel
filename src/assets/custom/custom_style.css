@@ -1,0 +1,13 @@
+.cat__menu-left__logo img {
+  max-height: 4rem;
+  padding-left: 28px;
+}
+
+.cat__menu-left__logo {
+  background: none;
+}
+
+.jspContainer {
+  margin-top: 10px;
+}
+

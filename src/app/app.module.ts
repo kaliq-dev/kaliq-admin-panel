@@ -14,6 +14,7 @@ import {MenuRightComponent} from './components/menu-right/menu-right.component';
 import {FooterComponent} from './components/footer/footer.component';
 
 import {StructureModule} from './structure/structure.module';
+import {GeneralModule} from './general/general.module';
 
 declare var NProgress: any;
 
@@ -31,6 +32,7 @@ declare var NProgress: any;
     HttpModule,
     RouterModule,
     StructureModule,
+    GeneralModule,
     NgbModule.forRoot(),
     routing
   ],

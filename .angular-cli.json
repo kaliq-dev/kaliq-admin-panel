@@ -52,7 +52,8 @@
         "assets/modules/footer/common/footer.cleanui.css",
         "assets/modules/pages/common/pages.cleanui.css",
         "assets/modules/ecommerce/common/ecommerce.cleanui.css",
-        "assets/modules/apps/common/apps.cleanui.css"
+        "assets/modules/apps/common/apps.cleanui.css",
+        "assets/custom/custom_style.css"
       ],
       "scripts": [
         "assets/vendors/by_bower/jquery/dist/jquery.js",

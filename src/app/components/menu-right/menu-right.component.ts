@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 declare var $: any;
 declare var jQuery: any;
 
@@ -9,14 +9,14 @@ declare var jQuery: any;
 export class MenuRightComponent implements OnInit {
   ngOnInit() {
 
-    $(function(){
+    $(function () {
 
       // scripts for "menu-right" module
 
       /////////////////////////////////////////////////////////////////////////////////////////
       // toggle right menu
 
-      $('.cat__menu-right__action--menu-toggle').on('click', function(){
+      $('.cat__menu-right__action--menu-toggle').on('click', function () {
         $('body').toggleClass('cat__menu-right--visible');
       });
 
@@ -44,18 +44,17 @@ export class MenuRightComponent implements OnInit {
       }
 
 
-
       /////////////////////////////////////////////////////////////////////////////////////////
       // options scripts
 
-      $('.cat__menu-right--example-option').each(function(){
+      $('.cat__menu-right--example-option').each(function () {
 
         var inputs = $(this).find('input'),
           buttons = $(this).find('.btn');
 
         // detect current options and set active buttons
         var found = false;
-        inputs.each(function(){
+        inputs.each(function () {
 
           if ($('body').hasClass($(this).val())) {
             $(this).parent().trigger('click');
@@ -69,14 +68,14 @@ export class MenuRightComponent implements OnInit {
         }
 
         // change options on click
-        $(this).find('.btn').on('click', function(){
+        $(this).find('.btn').on('click', function () {
           var removeClasses = '',
             addClass = $(this).find('input').val();
 
           buttons.removeClass('active');
           $(this).addClass('active');
 
-          inputs.each(function(){
+          inputs.each(function () {
             removeClasses += $(this).val() + ' ';
           });
 
@@ -96,6 +95,6 @@ export class MenuRightComponent implements OnInit {
 
 
     });
-    
+
   }
 }
