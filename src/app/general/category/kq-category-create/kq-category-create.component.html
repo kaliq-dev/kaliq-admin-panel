@@ -1,0 +1,80 @@
+<!-- START: forms/basic-forms-elements -->
+<section class="card">
+  <div class="card-header">
+        <span class="cat__core__title">
+            <strong>Add A New Category For KALIQ.com</strong>
+        </span>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="mb-5">
+          <form>
+            <!--category name-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">Choose Parent Category (if any)</label>
+              <div class="col-md-9">
+                <select class="form-control" id="l13">
+                  <option value="--"> ---</option>
+                  <option>Electronics</option>
+                  <option>Fashion</option>
+                  <option>Food</option>
+                  <option>Sports</option>
+                  <option>Movies</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Category Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="Name of the category" id="l0">
+              </div>
+            </div>
+
+            <div class="form-group row" *ngFor="let x of subCategoryList;let i=index">
+              <label class="col-md-3 col-form-label" for="l0">
+                <span *ngIf="i==0"> Sub Category: </span>
+              </label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-11">
+                    <input type="text" class="form-control" placeholder="Name of the sub category" id="l0">
+                  </div>
+                  <div class="col-md-1">
+                    <button type="button" class="pull-right btn btn-danger btn-xs" (click)="removeCategory(i)">
+                      <i class="fa fa-times" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0"></label>
+              <div class="col-md-9">
+                <button (click)="addSubCategory()" type="button" class="btn btn-primary btn-sm pull-right"><span
+                  class="fa fa-plus"></span> Add
+                  Sub Category
+                </button>
+              </div>
+            </div>            <!-- END: forms/file-uploads -->
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End Horizontal Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: forms/basic-forms-elements -->
+
+
+<!--start of category list component-->
+<app-kq-category-list></app-kq-category-list>

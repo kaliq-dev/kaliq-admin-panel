@@ -12,13 +12,48 @@
   <div class="cat__menu-left__inner">
     <ul class="cat__menu-left__list cat__menu-left__list--root">
 
+
+      <!--dynamic contents for KALIQ-->
+
+      <!--dashboard-->
+
+      <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+        <a [routerLink]="['kq/dashboard/home']">
+          <span class="cat__menu-left__icon icmn-home"></span>
+          <span class="badge badge-primary pull-right">kaliq</span>
+          Dashboard
+        </a>
+      </li>
+
+
+      <!--inventory-->
+
+      <li class="cat__menu-left__item cat__menu-left__submenu" [routerLinkActive]="['cat__menu-left__item--active']">
+        <a href="javascript: void(0);">
+          <span class="cat__menu-left__icon icmn-table"></span>
+          <span class="badge badge-primary pull-right">kaliq</span>
+          Inventory
+        </a>
+        <!--category -->
+        <ul class="cat__menu-left__list">
+          <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+            <a [routerLink]="['kq/category']">
+              <span class="cat__menu-left__icon">NC</span>
+              Category
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!--static contents of theme-->
+
       <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
         <a [routerLink]="['dashboards/alpha']">
           <span class="cat__menu-left__icon icmn-home"></span>
-          <span class="badge badge-primary pull-right">New</span>
           Dashboard Alpha
         </a>
       </li>
+
       <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
         <a [routerLink]="['dashboards/beta']">
           <span class="cat__menu-left__icon icmn-home"></span>
