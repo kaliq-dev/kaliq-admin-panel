@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KqCategoryCreateComponent } from './kq-category-create.component';
+import { KqBrandCreateEditComponent } from './kq-brand-create-edit.component';
 
-describe('KqCategoryCreateComponent', () => {
-  let component: KqCategoryCreateComponent;
-  let fixture: ComponentFixture<KqCategoryCreateComponent>;
+describe('KqBrandCreateEditComponent', () => {
+  let component: KqBrandCreateEditComponent;
+  let fixture: ComponentFixture<KqBrandCreateEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KqCategoryCreateComponent ]
+      declarations: [ KqBrandCreateEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KqCategoryCreateComponent);
+    fixture = TestBed.createComponent(KqBrandCreateEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

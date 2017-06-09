@@ -1,5 +1,5 @@
 <!-- START: forms/basic-forms-elements -->
-<section class="card">
+<section class="card" *ngIf="isShowAddCategory">
   <div class="card-header">
         <span class="cat__core__title">
             <strong>Add A New Category For KALIQ.com</strong>
@@ -25,6 +25,7 @@
               </div>
             </div>
 
+            <!--category name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Category Name</label>
               <div class="col-md-9">
@@ -32,6 +33,17 @@
               </div>
             </div>
 
+            <!--thumbnail upload-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l16">Thumbnail</label>
+              <div class="col-md-9">
+                <input type="file" id="l16" accept=".jpg,.jpeg,.png">
+                <br/>
+                <small class="text-muted">* jpg, jpeg, png</small>
+              </div>
+            </div>
+
+            <!--sub category-->
             <div class="form-group row" *ngFor="let x of subCategoryList;let i=index">
               <label class="col-md-3 col-form-label" for="l0">
                 <span *ngIf="i==0"> Sub Category: </span>
@@ -57,12 +69,12 @@
                   Sub Category
                 </button>
               </div>
-            </div>            <!-- END: forms/file-uploads -->
+            </div>
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success">Submit</button>
-                  <button type="button" class="btn btn-default">Cancel</button>
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>
             </div>
@@ -77,4 +89,4 @@
 
 
 <!--start of category list component-->
-<app-kq-category-list></app-kq-category-list>
+<app-kq-category-list (onShowAddCategory)="showAddCategory()"></app-kq-category-list>

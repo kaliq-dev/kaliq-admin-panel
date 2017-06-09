@@ -1,0 +1,92 @@
+<!-- START: forms/basic-forms-elements -->
+<section class="card" *ngIf="isShowAddSupplier">
+  <div class="card-header">
+        <span class="cat__core__title">
+            <strong>Add A New Supplier For KALIQ.com</strong>
+        </span>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="mb-5">
+          <form>
+
+            <!--supplier name-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Supplier Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="Name of the supplier" id="l0">
+              </div>
+            </div>
+
+            <!--supplier contact no-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Contact no. </label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="Contact no." id="l0">
+              </div>
+            </div>
+
+            <!--supplier email address-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Email </label>
+              <div class="col-md-9">
+                <input type="email" class="form-control" placeholder="Email" id="l0">
+              </div>
+            </div>
+
+            <!--attachments-->
+            <div class="form-group row" *ngFor="let x of attachmentList;let i=index">
+              <label class="col-md-3 col-form-label" for="l16">
+                <span *ngIf="i==0"> Attachments: </span>
+              </label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-6">
+                    <input type="file" id="l16" accept=".jpg,.jpeg,.png,.pdf">
+                    <!--<small class="text-muted">* .jpg, .jpeg, .png, .pdf</small>-->
+                  </div>
+                  <div class="col-md-1 col-md-offset-5">
+                    <button *ngIf="i!=0" type="button" class="pull-right btn btn-danger btn-xs"
+                            (click)="removeAttachment(i)">
+                      <i class="fa fa-times" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--add attachment-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l16"></label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-6">
+                    <button (click)="addAttachment()" type="button" class="btn btn-primary btn-xs"><span
+                      class="fa fa-plus"></span> Add Attachment
+                    </button>
+                  </div>
+                  <div class="col-md-1 col-md-offset-5">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End Horizontal Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- END: forms/basic-forms-elements -->
+<!--start of category list component-->
+<app-kq-supplier-list (onShowAddSupplier)="showAddSupplier()"></app-kq-supplier-list>
