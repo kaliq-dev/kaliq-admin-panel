@@ -9,12 +9,12 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form>
+          <form [formGroup]="categoryCreateEditForm" (submit)="submitForm()">
             <!--category name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l13">Choose Parent Category (if any)</label>
               <div class="col-md-9">
-                <select class="form-control" id="l13">
+                <select class="form-control" id="l13" formControlName="parentCategory">
                   <option value="--"> ---</option>
                   <option>Electronics</option>
                   <option>Fashion</option>
@@ -29,17 +29,19 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Category Name</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="Name of the category" id="l0">
+                <input formControlName="name" type="text" class="form-control" placeholder="Name of the category" id="l0">
               </div>
             </div>
 
             <!--thumbnail upload-->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="l16">Thumbnail</label>
+              <label class="col-md-3 col-form-label">Thumbnail</label>
               <div class="col-md-9">
-                <input type="file" id="l16" accept=".jpg,.jpeg,.png">
-                <br/>
-                <small class="text-muted">* jpg, jpeg, png</small>
+                <div class="col-lg-6">
+                  <div class="mb-5">
+                    <input formControlName="image" type="file" class="dropify"/>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -51,7 +53,7 @@
               <div class="col-md-9">
                 <div class="row">
                   <div class="col-md-11">
-                    <input type="text" class="form-control" placeholder="Name of the sub category" id="l0">
+                    <input formControlName="subCategory" type="text" class="form-control" placeholder="Name of the sub category" id="l0">
                   </div>
                   <div class="col-md-1">
                     <button type="button" class="pull-right btn btn-danger btn-xs" (click)="removeCategory(i)">
@@ -73,7 +75,7 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>
@@ -86,7 +88,5 @@
   </div>
 </section>
 <!-- END: forms/basic-forms-elements -->
-
-
 <!--start of category list component-->
 <app-kq-category-list (onShowAddCategory)="showAddCategory()"></app-kq-category-list>

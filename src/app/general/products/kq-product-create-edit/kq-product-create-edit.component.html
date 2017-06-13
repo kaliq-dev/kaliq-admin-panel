@@ -1,0 +1,155 @@
+<!-- START: forms/basic-forms-elements -->
+<section class="card" *ngIf="isShowAddProduct">
+  <div class="card-header">
+        <span class="cat__core__title">
+            <strong>Add A New Product For KALIQ.com</strong>
+        </span>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="mb-5">
+          <form [formGroup]="productCreateEditForm" (submit)="submitForm()">
+            <!--product name-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Product Name</label>
+              <div class="col-md-9">
+                <input formControlName="name" type="text" class="form-control" placeholder="Name of the product"
+                       id="l0">
+              </div>
+            </div>
+
+            <!--product department -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">Supplier</label>
+              <div class="col-md-9">
+                <select class="form-control" formControlName="supplier" id="l13">
+                  <option>Supplier A</option>
+                  <option>Supplier B</option>
+                  <option>Supplier C</option>
+                  <option>Supplier D</option>
+                  <option>Supplier E</option>
+                </select>
+              </div>
+            </div>
+
+            <!--product category -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">Category</label>
+              <div class="col-md-9">
+                <select class="form-control" id="l13" formControlName="category">
+                  <option>Computer Accessories</option>
+                  <option>Laptop & Tablets</option>
+                  <option>Food</option>
+                  <option>Sports</option>
+                  <option>Movies</option>
+                </select>
+              </div>
+            </div>
+
+            <!--product brand-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">Brand</label>
+              <div class="col-md-9">
+                <select class="form-control" id="l13" formControlName="brand">
+                  <option>Apple</option>
+                  <option>Microsoft</option>
+                  <option>Google</option>
+                  <option>IBM</option>
+                  <option>Sony</option>
+                </select>
+              </div>
+            </div>
+
+            <!--price-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="exampleInputAmount">Price</label>
+              <div class="col-md-9 input-group">
+                <div class="input-group-addon">$</div>
+                <input formControlName="price" type="text" class="form-control" id="exampleInputAmount"
+                       placeholder="Amount">
+              </div>
+            </div>
+
+            <!--VAT-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="exampleInputAmount">VAT (%)</label>
+              <div class="col-md-9 input-group">
+                <div class="input-group-addon">$</div>
+                <input formControlName="vat" type="text" class="form-control" id="exampleInputAmount"
+                       placeholder="Amount">
+              </div>
+            </div>
+
+            <!--discount / sale label-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">Sale / Offer</label>
+              <div class="col-md-9">
+                <select class="form-control" id="l13" formControlName="sale">
+                  <option> --</option>
+                  <option>50% off</option>
+                  <option>Black Friday Sale</option>
+                  <option>2% off</option>
+                  <option>10% off</option>
+                  <option>Eid sale</option>
+                </select>
+              </div>
+            </div>
+            <!--create gallery-->
+            <!-- START: forms/file-uploads -->
+            <!--attachments-->
+            <div class="form-group row" *ngFor="let x of galleryImageList;let i=index">
+              <label class="col-md-3 col-form-label" for="l16">
+                <span *ngIf="i==0"> Product Images : </span>
+              </label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="mb-5">
+                      <input type="file" class="dropify" formControlName="image"/>
+                    </div>
+                  </div>
+                  <div class="col-md-1 col-md-offset-5">
+                    <button *ngIf="i!=0" type="button" class="pull-right btn btn-danger btn-xs"
+                            (click)="removeGalleryImage(i)">
+                      <i class="fa fa-times" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!--add attachment-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l16"></label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-6">
+                    <button (click)="addGalleryImageList()" type="button" class="btn btn-primary btn-xs"><span
+                      class="fa fa-plus"></span> Add Image
+                    </button>
+                  </div>
+                  <div class="col-md-1 col-md-offset-5">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- END: forms/file-uploads -->
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End Horizontal Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: forms/basic-forms-elements -->
+<app-kq-product-list (onShowProductAddForm)="showAddProduct()"></app-kq-product-list>

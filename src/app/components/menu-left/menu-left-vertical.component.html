@@ -11,28 +11,31 @@
   </div>
   <div class="cat__menu-left__inner">
     <ul class="cat__menu-left__list cat__menu-left__list--root">
-
-
       <!--dynamic contents for KALIQ-->
-
       <!--dashboard-->
-
       <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
         <a [routerLink]="['kq/dashboard/home']">
           <span class="cat__menu-left__icon icmn-home"></span>
-          <span class="badge badge-primary pull-right">kaliq</span>
+          <!--<span class="badge badge-primary pull-right">kaliq</span>-->
           Dashboard
         </a>
       </li>
-
       <!--inventory-->
-
       <li class="cat__menu-left__item cat__menu-left__submenu" [routerLinkActive]="['cat__menu-left__item--active']">
         <a href="javascript: void(0);">
           <span class="cat__menu-left__icon icmn-table"></span>
-          <span class="badge badge-primary pull-right">kaliq</span>
+          <!--<span class="badge badge-primary pull-right">kaliq</span>-->
           Inventory
         </a>
+
+        <ul class="cat__menu-left__list">
+          <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+            <a [routerLink]="['kq/product']">
+              <span class="cat__menu-left__icon">NP</span>
+              Product
+            </a>
+          </li>
+        </ul>
         <!--category -->
         <ul class="cat__menu-left__list">
           <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">

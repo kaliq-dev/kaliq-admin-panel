@@ -9,13 +9,13 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form>
-
+          <form [formGroup]="supplierCreateEditForm" (submit)="submitForm()">
             <!--supplier name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Supplier Name</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="Name of the supplier" id="l0">
+                <input formControlName="name" type="text" class="form-control" placeholder="Name of the supplier"
+                       id="l0">
               </div>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Contact no. </label>
               <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="Contact no." id="l0">
+                <input formControlName="contact" type="text" class="form-control" placeholder="Contact no." id="l0">
               </div>
             </div>
 
@@ -31,7 +31,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Email </label>
               <div class="col-md-9">
-                <input type="email" class="form-control" placeholder="Email" id="l0">
+                <input formControlName="email" type="email" class="form-control" placeholder="Email" id="l0">
               </div>
             </div>
 
@@ -42,9 +42,10 @@
               </label>
               <div class="col-md-9">
                 <div class="row">
-                  <div class="col-md-6">
-                    <input type="file" id="l16" accept=".jpg,.jpeg,.png,.pdf">
-                    <!--<small class="text-muted">* .jpg, .jpeg, .png, .pdf</small>-->
+                  <div class="col-lg-6">
+                    <div class="mb-5">
+                      <input formControlName="attachment" type="file" class="dropify"/>
+                    </div>
                   </div>
                   <div class="col-md-1 col-md-offset-5">
                     <button *ngIf="i!=0" type="button" class="pull-right btn btn-danger btn-xs"
@@ -74,7 +75,7 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>

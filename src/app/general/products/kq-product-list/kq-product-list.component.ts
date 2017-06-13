@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 declare var $: any;
 declare var jQuery: any;
 
@@ -8,6 +8,7 @@ declare var jQuery: any;
   styleUrls: ['./kq-product-list.component.css']
 })
 export class KqProductListComponent implements OnInit {
+  @Output() onShowProductAddForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
   }
@@ -22,6 +23,14 @@ export class KqProductListComponent implements OnInit {
       });
 
     })
+  }
+
+
+  showAddProduct(){
+    $(function () {
+      $('.dropify').dropify();
+    });
+    this.onShowProductAddForm.emit(true);
   }
 
 }

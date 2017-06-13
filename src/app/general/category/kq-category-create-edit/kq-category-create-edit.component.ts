@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-kq-category-create-edit',
@@ -7,13 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KqCategoryCreateEditComponent implements OnInit {
 
+  public categoryCreateEditForm: FormGroup;
   public subCategoryList: any[] = [];
   public isShowAddCategory = false;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.categoryCreateEditForm = this.fb.group({
+      parentCategory: [''],
+      name: [''],
+      image: [''],
+      subCategory: ['']
+    })
   }
 
   addSubCategory() {
@@ -28,8 +40,13 @@ export class KqCategoryCreateEditComponent implements OnInit {
     this.isShowAddCategory = true;
   }
 
-  cancel(){
+  cancel() {
     this.isShowAddCategory = false;
   }
+
+  submitForm() {
+    console.log(this.categoryCreateEditForm.value);
+  }
+
 
 }

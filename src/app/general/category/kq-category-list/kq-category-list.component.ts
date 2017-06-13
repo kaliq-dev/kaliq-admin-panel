@@ -1,4 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+declare var $: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-kq-category-list',
@@ -16,6 +18,9 @@ export class KqCategoryListComponent implements OnInit {
   }
 
   showAddCategory() {
+    $(function () {
+      $('.dropify').dropify();
+    });
     this.onShowAddCategory.emit(true);
   }
 

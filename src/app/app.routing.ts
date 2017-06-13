@@ -2,7 +2,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'dashboard/home', pathMatch: 'full'},
+  {path: '', redirectTo: 'kq/dashboard/home', pathMatch: 'full'},
   {path: '**', redirectTo: 'pages/page-404'}
 ];
 

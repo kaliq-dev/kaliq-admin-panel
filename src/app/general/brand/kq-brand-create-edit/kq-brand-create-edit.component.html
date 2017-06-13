@@ -1,3 +1,50 @@
-<p>
-  kq-brand-create-edit works!
-</p>
+<!-- START: forms/basic-forms-elements -->
+<section class="card" *ngIf="isShowAddBrand">
+  <div class="card-header">
+        <span class="cat__core__title">
+            <strong>Add A New Brand For KALIQ.com</strong>
+        </span>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="mb-5">
+          <form [formGroup]="brandCreateEditForm">
+            <!--brand name-->
+            <div formControlName="name" class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">Brand Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="Name of the brand" id="l0">
+              </div>
+            </div>
+            <!--thumbnail upload-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Logo / Thumbnail</label>
+              <div class="col-md-9">
+                <div class="col-lg-6">
+                  <div class="mb-5">
+                    <input (change)="getFile($event)" type="file" class="dropify"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
+                          (click)="submitForm()">Submit
+                  </button>
+                  <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End Horizontal Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: forms/basic-forms-elements -->
+<!--start of brand list component-->
+<app-kq-brand-list (onShowAddBrand)="showAddBrand()"></app-kq-brand-list>
