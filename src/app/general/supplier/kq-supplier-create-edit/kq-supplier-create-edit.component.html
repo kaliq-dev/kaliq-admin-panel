@@ -72,10 +72,15 @@
               </div>
             </div>
 
+            <div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Supplier Registerted Successfully !!</div>
+            <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Registering New Supplier. Please Try Again !!</div>
+
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;" (click)="submitForm()">Submit</button>
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
+                          (click)="submitForm()">Submit
+                  </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>

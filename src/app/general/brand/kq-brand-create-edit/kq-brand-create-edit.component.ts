@@ -17,7 +17,8 @@ export class KqBrandCreateEditComponent implements OnInit {
   public brandImageList: any[] = [];
 
   public progressBarVisibility = true;
-  public isSubmitted = true;
+  public isSubmitted = false;
+  public isNotSubmitted = false;
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'brand/upload-image';
 

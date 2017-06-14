@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
+import * as _ from "underscore";
 declare var $: any;
 declare var jQuery: any;
 
@@ -20,10 +21,10 @@ export class KqSupplierCreateEditComponent implements OnInit {
   public supplierAttachment: any;
 
   public fileInput: any;
-  public isSubmitted = true;
+  public isSubmitted = false;
+  public isNotSubmitted = false;
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'supplier/upload-image';
-
 
   constructor(private fb: FormBuilder, private uploadService: UploadService) {
   }
@@ -43,19 +44,35 @@ export class KqSupplierCreateEditComponent implements OnInit {
   }
 
   createNewSupplier() {
+    this.supplierCreateEditForm.patchValue({
+      supplierAttachmentList: this.supplierAttachmentList
+    });
+    console.log(this.supplierCreateEditForm.value);
 
   }
 
   submitForm() {
     if (this.supplierCreateEditForm.value.name) {
-      this.uploadService.uploadFile(this.uploadRoute, this.supplierAttachmentList)
-        .then((res) => {
-          if (res) {
-            this.createNewSupplier();
-          } else {
-            this.isSubmitted = false;
-          }
-        })
+      _.each(this.supplierAttachmentList, (attachment) => {
+        this.uploadService.uploadFile(this.uploadRoute, attachment)
+          .then((res) => {
+            if (res) {
+              this.isSubmitted = true;
+            } else {
+              this.isSubmitted = false;
+            }
+          })
+          .then(() => {
+            console.log("File Upload Completed");
+          })
+          .catch((err) => {
+            if (err) {
+              this.isNotSubmitted = true;
+            }
+          });
+      });
+      this.createNewSupplier();
+
     }
   }
 
