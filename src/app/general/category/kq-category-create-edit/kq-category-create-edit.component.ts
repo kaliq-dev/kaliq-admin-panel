@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {environment} from "../../../../environments/environment";
+import {UploadService} from "../../upload.service";
+import * as _ from "underscore";
 
 @Component({
   selector: 'app-kq-category-create-edit',
@@ -12,7 +15,14 @@ export class KqCategoryCreateEditComponent implements OnInit {
   public subCategoryList: any[] = [];
   public isShowAddCategory = false;
 
-  constructor(private fb: FormBuilder) {
+  public categoryImage: any;
+  public progressBarVisibility = true;
+  public fileInput: any;
+  public isSubmitted = false;
+  public isNotSubmitted = false;
+  public uploadRoute = environment.api_server + 'category/upload-image';
+
+  constructor(private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
@@ -44,8 +54,43 @@ export class KqCategoryCreateEditComponent implements OnInit {
     this.isShowAddCategory = false;
   }
 
-  submitForm() {
+  createNewCategory() {
+    this.categoryCreateEditForm.patchValue({
+      image: this.categoryImage
+    });
     console.log(this.categoryCreateEditForm.value);
+    this.categoryImage = undefined;
+    this.categoryCreateEditForm.reset();
+  }
+
+  submitForm() {
+    if (this.categoryCreateEditForm.value.name) {
+      this.uploadService.uploadFile(this.uploadRoute, this.categoryImage)
+        .then((res) => {
+          if (res) {
+            this.isSubmitted = true;
+          } else {
+            this.isSubmitted = false;
+          }
+        })
+        .then(() => {
+          console.log("File upload complete");
+        })
+        .catch((err) => {
+          if (err) {
+            this.isNotSubmitted = true;
+          }
+        });
+      this.createNewCategory();
+    }
+  }
+
+
+  //image file upload methods
+  getFile(event: any) {
+    this.fileInput = event;
+    this.categoryImage = this.uploadService.getFile(this.fileInput);
+    this.progressBarVisibility = true;
   }
 
 

@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {environment} from "../../../../environments/environment";
+import {UploadService} from "../../upload.service";
+import * as _ from "underscore";
 declare var $: any;
 declare var jQuery: any;
 
@@ -14,12 +17,23 @@ export class KqProductCreateEditComponent implements OnInit {
   public galleryImageList: any[] = [];
   public isShowAddProduct: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  public progressBarVisibility = true;
+  public productImageList: any[] = [];
+  public productImage: any;
+
+  public fileInput: any;
+  public isSubmitted = false;
+  public isNotSubmitted = false;
+  public uploadProgress: any;
+  public uploadRoute = environment.api_server + 'product/upload-image';
+
+
+  constructor(private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.galleryImageList.push(1);
+    this.productImageList.push([]);
   }
 
   buildForm() {
@@ -31,23 +45,51 @@ export class KqProductCreateEditComponent implements OnInit {
       price: [''],
       vat: [''],
       sale: [''],
-      image: ['']
+      productImageList: ['']
     });
   }
 
+  createNewProduct() {
+    this.productCreateEditForm.patchValue({
+      productImageList: this.productImageList
+    });
+    this.productImageList = [];
+    this.productCreateEditForm.reset();
+  }
+
   submitForm() {
-    console.log(this.productCreateEditForm.value);
+    if (this.productCreateEditForm.value.name) {
+      _.each(this.productImageList, (image) => {
+        this.uploadService.uploadFile(this.uploadRoute, image)
+          .then((res) => {
+            if (res) {
+              this.isSubmitted = true;
+            } else {
+              this.isSubmitted = false;
+            }
+          })
+          .then(() => {
+            console.log("File upload complete");
+          })
+          .catch((err) => {
+            if (err) {
+              this.isNotSubmitted = true;
+            }
+          });
+      });
+      this.createNewProduct();
+    }
   }
 
   addGalleryImageList() {
     $(function () {
       $('.dropify').dropify();
     });
-    this.galleryImageList.push(1);
+    this.productImageList.push([]);
   }
 
   removeGalleryImage(index) {
-    this.galleryImageList.splice(index, 1);
+    this.productImageList.splice(index, 1);
   }
 
   showAddProduct() {
@@ -56,5 +98,21 @@ export class KqProductCreateEditComponent implements OnInit {
 
   cancel() {
     this.isShowAddProduct = false;
+    this.isSubmitted = false;
+    this.isNotSubmitted = false;
+  }
+
+  //images file upload methods
+  getFile(event: any, index) {
+    $(function () {
+      $('.dropify').dropify();
+    });
+    this.fileInput = event;
+    this.productImage = this.uploadService.getFile(this.fileInput);
+    this.productImageList.splice(index, 0, this.productImage);
+    this.progressBarVisibility = true;
+    this.productCreateEditForm.patchValue({
+      productImageList: this.productImageList
+    });
   }
 }

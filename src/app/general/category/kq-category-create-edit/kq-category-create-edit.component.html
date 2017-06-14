@@ -5,11 +5,17 @@
             <strong>Add A New Category For KALIQ.com</strong>
         </span>
   </div>
+
+  <div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Create Category Successfully !!</div>
+  <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Category. Please Try
+    Again !!
+  </div>
+
   <div class="card-block">
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form [formGroup]="categoryCreateEditForm" (submit)="submitForm()">
+          <form [formGroup]="categoryCreateEditForm">
             <!--category name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l13">Choose Parent Category (if any)</label>
@@ -29,7 +35,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Category Name</label>
               <div class="col-md-9">
-                <input formControlName="name" type="text" class="form-control" placeholder="Name of the category" id="l0">
+                <input formControlName="name" type="text" class="form-control" placeholder="Name of the category"
+                       id="l0">
               </div>
             </div>
 
@@ -39,7 +46,7 @@
               <div class="col-md-9">
                 <div class="col-lg-6">
                   <div class="mb-5">
-                    <input formControlName="image" type="file" class="dropify"/>
+                    <input (change)="getFile($event)" type="file" class="dropify"/>
                   </div>
                 </div>
               </div>
@@ -53,7 +60,8 @@
               <div class="col-md-9">
                 <div class="row">
                   <div class="col-md-11">
-                    <input formControlName="subCategory" type="text" class="form-control" placeholder="Name of the sub category" id="l0">
+                    <input formControlName="subCategory" type="text" class="form-control"
+                           placeholder="Name of the sub category" id="l0">
                   </div>
                   <div class="col-md-1">
                     <button type="button" class="pull-right btn btn-danger btn-xs" (click)="removeCategory(i)">
@@ -75,7 +83,9 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
+                          (click)="submitForm()">Submit
+                  </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>

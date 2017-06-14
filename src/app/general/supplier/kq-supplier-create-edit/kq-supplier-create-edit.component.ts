@@ -48,7 +48,8 @@ export class KqSupplierCreateEditComponent implements OnInit {
       supplierAttachmentList: this.supplierAttachmentList
     });
     console.log(this.supplierCreateEditForm.value);
-
+    this.supplierAttachmentList = [];
+    this.supplierCreateEditForm.reset();
   }
 
   submitForm() {
@@ -72,12 +73,13 @@ export class KqSupplierCreateEditComponent implements OnInit {
           });
       });
       this.createNewSupplier();
-
     }
   }
 
   cancel() {
     this.isShowAddSupplier = false;
+    this.isSubmitted = false;
+    this.isNotSubmitted = false;
   }
 
   addAttachment() {

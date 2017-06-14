@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form [formGroup]="productCreateEditForm" (submit)="submitForm()">
+          <form [formGroup]="productCreateEditForm">
             <!--product name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Product Name</label>
@@ -98,7 +98,7 @@
             <!--create gallery-->
             <!-- START: forms/file-uploads -->
             <!--attachments-->
-            <div class="form-group row" *ngFor="let x of galleryImageList;let i=index">
+            <div class="form-group row" *ngFor="let x of productImageList;let i=index">
               <label class="col-md-3 col-form-label" for="l16">
                 <span *ngIf="i==0"> Product Images : </span>
               </label>
@@ -106,7 +106,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="mb-5">
-                      <input type="file" class="dropify" formControlName="image"/>
+                      <input (change)="getFile($event,i)" type="file" class="dropify"/>
                     </div>
                   </div>
                   <div class="col-md-1 col-md-offset-5">
@@ -125,9 +125,9 @@
               <div class="col-md-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <button (click)="addGalleryImageList()" type="button" class="btn btn-primary btn-xs"><span
-                      class="fa fa-plus"></span> Add Image
-                    </button>
+                    <!--<button (click)="addGalleryImageList()" type="button" class="btn btn-primary btn-xs"><span-->
+                    <!--class="fa fa-plus"></span> Add Image-->
+                    <!--</button>-->
                   </div>
                   <div class="col-md-1 col-md-offset-5">
                   </div>
@@ -139,7 +139,9 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
+                          (click)="submitForm()">Submit
+                  </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>
