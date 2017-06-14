@@ -4,6 +4,7 @@
         <span class="cat__core__title">
             <strong>Add A New Brand For KALIQ.com</strong>
         </span>
+    <span>{{uploadProgress}}</span>
   </div>
   <div class="card-block">
     <div class="row">
@@ -11,10 +12,10 @@
         <div class="mb-5">
           <form [formGroup]="brandCreateEditForm">
             <!--brand name-->
-            <div formControlName="name" class="form-group row">
+            <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Brand Name</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="Name of the brand" id="l0">
+                <input formControlName="name" type="text" class="form-control" placeholder="Name of the brand" id="l0">
               </div>
             </div>
             <!--thumbnail upload-->

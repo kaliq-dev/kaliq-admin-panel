@@ -12,6 +12,8 @@ import {KqBrandCreateEditComponent} from './brand/kq-brand-create-edit/kq-brand-
 import {KqBrandListComponent} from './brand/kq-brand-list/kq-brand-list.component';
 import {KqProductCreateEditComponent} from './products/kq-product-create-edit/kq-product-create-edit.component';
 import {UploadService} from "./upload.service";
+import {BrandService} from './brand/brand.service';
+import {CustomHttpService} from '../custom-http.service';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import {UploadService} from "./upload.service";
   ],
   exports: [],
   providers: [
-    UploadService
+    UploadService,
+    BrandService,
+    CustomHttpService
   ]
 })
 export class GeneralModule {

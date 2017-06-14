@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UploadService} from "../../upload.service";
 import {environment} from '../../../../environments/environment';
+import {BrandService} from '../brand.service';
 
 @Component({
   selector: 'app-kq-brand-create-edit',
   templateUrl: './kq-brand-create-edit.component.html',
-  styleUrls: ['./kq-brand-create-edit.component.css']
+  styleUrls: ['./kq-brand-create-edit.component.css'],
 })
 export class KqBrandCreateEditComponent implements OnInit {
 
@@ -18,9 +19,9 @@ export class KqBrandCreateEditComponent implements OnInit {
   public progressBarVisibility = true;
   public isSubmitted = true;
   public uploadProgress: any;
-  public uploadRoute = environment.api_server + 'brand/create';
+  public uploadRoute = environment.api_server + 'brand/upload-image';
 
-  constructor(private fb: FormBuilder, private uploadService: UploadService) {
+  constructor(private fb: FormBuilder, private uploadService: UploadService, private brandService: BrandService) {
   }
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class KqBrandCreateEditComponent implements OnInit {
   buildForm() {
     this.brandCreateEditForm = this.fb.group({
       name: [''],
-      image: ['']
+      brandImageList: ['']
     });
   }
 
@@ -45,46 +46,36 @@ export class KqBrandCreateEditComponent implements OnInit {
 
   getFile(event: any) {
     this.fileInput = event;
-    const FileList: FileList = this.fileInput.target.files;
-    for (let i = 0; i < FileList.length; i++) {
-      this.brandImageList.push(FileList.item(i));
-    }
+    this.brandImageList = this.uploadService.getFile(this.fileInput);
     this.progressBarVisibility = true;
-    // this.brandCreateEditForm.patchValue({
-    //   image: this.brandImageList
-    // });
+    this.brandCreateEditForm.patchValue({
+      brandImageList: this.brandImageList
+    });
   }
 
-  public async uploadFile(): Promise<any> {
-    let result: any;
-    if (!this.brandImageList.length) {
-      return;
-    }
-    this.isSubmitted = true;
-    this.uploadService.getObserver()
-      .subscribe(progress => {
-        this.uploadProgress = progress;
-      });
 
-    try {
-      result = await this.uploadService.upload(this.uploadRoute, this.brandImageList);
-    } catch (error) {
-      document.write(error);
-    }
-    //
-    // if (!result['images']) {
-    //   return;
-    // }
-
-    this.saveUploadedFilesData(result);
-  }
-
-  saveUploadedFilesData(result: any) {
-    console.log(result);
+  createNewBrand() {
+    this.brandService.create(this.brandCreateEditForm.value)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log("Error in create New Brand");
+        }
+      )
   }
 
   submitForm() {
-    this.uploadFile();
-    // console.log(this.brandCreateEditForm.value);
+    if (this.brandCreateEditForm.value.name) {
+      this.uploadService.uploadFile(this.uploadRoute, this.brandImageList)
+        .then((res) => {
+          if (res) {
+            this.createNewBrand();
+          } else {
+            this.isSubmitted = false;
+          }
+        })
+    }
   }
 }
