@@ -43,7 +43,6 @@ export class KqBrandCreateEditComponent implements OnInit {
     this.isShowAddBrand = true;
   }
 
-
   getFile(event: any) {
     this.fileInput = event;
     this.brandImageList = this.uploadService.getFile(this.fileInput);
@@ -53,7 +52,6 @@ export class KqBrandCreateEditComponent implements OnInit {
     });
   }
 
-
   createNewBrand() {
     this.brandService.create(this.brandCreateEditForm.value)
       .subscribe(
@@ -61,7 +59,7 @@ export class KqBrandCreateEditComponent implements OnInit {
           console.log(res);
         },
         (err) => {
-          console.log("Error in create New Brand");
+          console.log('Error in create New Brand');
         }
       )
   }

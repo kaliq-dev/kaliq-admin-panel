@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form [formGroup]="supplierCreateEditForm" (submit)="submitForm()">
+          <form [formGroup]="supplierCreateEditForm">
             <!--supplier name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Supplier Name</label>
@@ -36,7 +36,7 @@
             </div>
 
             <!--attachments-->
-            <div class="form-group row" *ngFor="let x of attachmentList;let i=index">
+            <div class="form-group row" *ngFor="let x of supplierAttachmentList;let i=index">
               <label class="col-md-3 col-form-label" for="l16">
                 <span *ngIf="i==0"> Attachments: </span>
               </label>
@@ -44,7 +44,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="mb-5">
-                      <input formControlName="attachment" type="file" class="dropify"/>
+                      <input (change)="getFile($event,i)" type="file" class="dropify"/>
                     </div>
                   </div>
                   <div class="col-md-1 col-md-offset-5">
@@ -58,7 +58,7 @@
 
             <!--add attachment-->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="l16"></label>
+              <label class="col-md-3 col-form-label"></label>
               <div class="col-md-9">
                 <div class="row">
                   <div class="col-md-6">
@@ -75,7 +75,7 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit</button>
+                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;" (click)="submitForm()">Submit</button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>
               </div>

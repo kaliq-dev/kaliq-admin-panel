@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {environment} from "../../../../environments/environment";
+import {UploadService} from "../../upload.service";
 declare var $: any;
 declare var jQuery: any;
 
@@ -11,15 +13,24 @@ declare var jQuery: any;
 export class KqSupplierCreateEditComponent implements OnInit {
 
   public supplierCreateEditForm: FormGroup;
-  public attachmentList: any[] = [];
   public isShowAddSupplier = false;
 
-  constructor(private fb: FormBuilder) {
+  public progressBarVisibility = true;
+  public supplierAttachmentList: any[] = [];
+  public supplierAttachment: any;
+
+  public fileInput: any;
+  public isSubmitted = true;
+  public uploadProgress: any;
+  public uploadRoute = environment.api_server + 'supplier/upload-image';
+
+
+  constructor(private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.attachmentList.push(1);
+    this.supplierAttachmentList.push([]);
   }
 
   buildForm() {
@@ -27,12 +38,25 @@ export class KqSupplierCreateEditComponent implements OnInit {
       name: [''],
       contact: [''],
       email: [''],
-      attachment: ['']
+      supplierAttachmentList: ['']
     });
   }
 
+  createNewSupplier() {
+
+  }
+
   submitForm() {
-    console.log(this.supplierCreateEditForm.value);
+    if (this.supplierCreateEditForm.value.name) {
+      this.uploadService.uploadFile(this.uploadRoute, this.supplierAttachmentList)
+        .then((res) => {
+          if (res) {
+            this.createNewSupplier();
+          } else {
+            this.isSubmitted = false;
+          }
+        })
+    }
   }
 
   cancel() {
@@ -43,15 +67,29 @@ export class KqSupplierCreateEditComponent implements OnInit {
     $(function () {
       $('.dropify').dropify();
     });
-    this.attachmentList.push(1);
+    this.supplierAttachmentList.push([]);
   }
 
   removeAttachment(index) {
-    this.attachmentList.splice(index, 1);
+    this.supplierAttachmentList.splice(index, 1);
   }
 
   showAddSupplier() {
     this.isShowAddSupplier = true;
+  }
+
+  // image file upload methods
+  getFile(event: any, index) {
+    $(function () {
+      $('.dropify').dropify();
+    });
+    this.fileInput = event;
+    this.supplierAttachment = this.uploadService.getFile(this.fileInput);
+    this.supplierAttachmentList.splice(index, 0, this.supplierAttachment);
+    this.progressBarVisibility = true;
+    this.supplierCreateEditForm.patchValue({
+      supplierAttachmentList: this.supplierAttachmentList
+    });
   }
 
 }
