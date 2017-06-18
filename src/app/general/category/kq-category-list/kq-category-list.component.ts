@@ -16,8 +16,7 @@ export class KqCategoryListComponent implements OnInit {
 
   public categoryList: Category[] = [];
 
-  constructor(private categoryService: CategoryService) {
-  }
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit() {
     this.getAllCategories();
@@ -27,15 +26,14 @@ export class KqCategoryListComponent implements OnInit {
     this.categoryService.readAll()
       .subscribe(
         (res) => {
-          this.categoryList = res.data;
-          this.onCategoryListData.emit(res.data);
+          this.categoryList = res;
+          this.onCategoryListData.emit(res);
         },
         (err) => {
           console.log("error in readAll");
         }
       )
   }
-
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['newCategory'].currentValue) {

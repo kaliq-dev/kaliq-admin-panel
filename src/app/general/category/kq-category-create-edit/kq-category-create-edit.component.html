@@ -17,7 +17,7 @@
         <div class="mb-5">
           <form [formGroup]="categoryCreateEditForm">
             <!--category name-->
-            <div class="form-group row">
+            <div class="form-group row" *ngIf="categoryList.length>0">
               <label class="col-md-3 col-form-label" for="l13">Choose Parent Category (if any)</label>
               <div class="col-md-9">
                 <select class="form-control" id="l13" formControlName="parentCategory">
@@ -99,5 +99,5 @@
 </section>
 <!-- END: forms/basic-forms-elements -->
 <!--start of category list component-->
-<app-kq-category-list [newCategory]="newCategory" (onCategoryListData)="categoryListData($event)"
+<app-kq-category-list [newCategory]="newCategory" (onCategoryListData)="categoryListData({event:$event})"
                       (onShowAddCategory)="showAddCategory()"></app-kq-category-list>

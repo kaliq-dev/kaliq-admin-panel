@@ -69,7 +69,7 @@ export class KqCategoryCreateEditComponent implements OnInit {
       name: this.categoryCreateEditForm.value.name,
       categoryImage: _.pluck(this.categoryImage, 'name'),
       parentCategory: this.categoryCreateEditForm.value.parentCategory,
-      subCategory: this.categoryCreateEditForm.value.subCategory
+      subCategory: _.uniq(this.subCategoryList)
     }
 
     this.categoryService.create(data)
@@ -78,6 +78,8 @@ export class KqCategoryCreateEditComponent implements OnInit {
           if (res.data) {
             this.newCategory = res.data;
             this.categoryImage = undefined;
+            this.subCategoryList = [];
+            this.allSubCategoryCounter = 0;
             this.categoryCreateEditForm.reset();
             this.isSubmitted = true;
           } else {
@@ -103,13 +105,14 @@ export class KqCategoryCreateEditComponent implements OnInit {
         })
         .then(() => {
           console.log("File upload complete");
+          this.createNewCategory();
         })
         .catch((err) => {
           if (err) {
             this.isNotSubmitted = true;
           }
         });
-      this.createNewCategory();
+
     }
   }
 
@@ -121,11 +124,11 @@ export class KqCategoryCreateEditComponent implements OnInit {
     this.progressBarVisibility = true;
   }
 
-
   //prepare parent category list
-  categoryListData(event: any) {
-    this.categoryList = event;
-    this.allSubCategoryList = this.categoryList.splice(0,this.categoryList.length - 1);
+  categoryListData(data) {
+    this.categoryList = data.event;
+    this.allSubCategoryList = data.event;
+    // this.allSubCategoryList = this.allSubCategoryList.splice(0, this.allSubCategoryList.length - 1);
   }
 
   onSubCategoryChange(event: any, index) {
