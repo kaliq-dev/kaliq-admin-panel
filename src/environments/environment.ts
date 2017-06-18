@@ -6,6 +6,7 @@
 export const environment = {
     production: false,
     //locally running api
-    api_server: 'http://localhost:5000/api/'
+    api_server: 'http://localhost:5000/api/',
+    image_path: '../../uploads/'
   }
-;
+

@@ -29,7 +29,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Contact no. </label>
               <div class="col-md-9">
-                <input formControlName="contact" type="text" class="form-control" placeholder="Contact no." id="l0">
+                <input formControlName="contact_no" type="text" class="form-control" placeholder="Contact no." id="l0">
               </div>
             </div>
 
@@ -99,4 +99,4 @@
 
 <!-- END: forms/basic-forms-elements -->
 <!--start of category list component-->
-<app-kq-supplier-list (onShowAddSupplier)="showAddSupplier()"></app-kq-supplier-list>
+<app-kq-supplier-list (onShowAddSupplier)="showAddSupplier()" [newSupplier]="newSupplier"></app-kq-supplier-list>

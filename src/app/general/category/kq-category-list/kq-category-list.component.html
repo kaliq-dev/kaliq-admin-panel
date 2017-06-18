@@ -2,9 +2,9 @@
 <section class="card">
   <div class="card-header">
     <div class="dropdown pull-right">
-        <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddCategory()">
-          <i class="fa fa-plus" aria-hidden="true"></i> New Category
-        </button>
+      <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddCategory()">
+        <i class="fa fa-plus" aria-hidden="true"></i> New Category
+      </button>
       <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="" role="menu">
         <a class="dropdown-item" href="javascript: void(0)">Simple Product</a>
         <a class="dropdown-item" href="javascript: void(0)">Configurable Product</a>
@@ -39,17 +39,16 @@
       </tr>
       </tfoot>
       <tbody>
-      <tr *ngFor="let x of [1,2,3,4,5,6,7,8,9,10]">
-        <td><a href="javascript: void(0);" class="cat__core__link--underlined">Computer</a></td>
+      <tr *ngFor="let category of categoryList">
+        <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ category.name }}</a></td>
         <td><a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img
           src="assets/modules/ecommerce/common/img/001.jpg"/></a></td>
         <td>
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> Electronics </a>
+          <a href="javascript: void(0);" class="cat__core__link--underlined"> {{ category.parent_name }} </a>
         </td>
         <td>
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> Tablet </a>
-            ,
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> Desktop </a>
+          <a href="javascript: void(0);" class="cat__core__link--underlined" *ngFor="let x of category.sub_category"> {{
+            x?.name }} </a>
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>

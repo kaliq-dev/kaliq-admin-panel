@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {UploadService} from "../../upload.service";
 import {environment} from '../../../../environments/environment';
 import {BrandService} from '../brand.service';
+import {Brand} from '../brand';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-kq-brand-create-edit',
@@ -15,6 +17,7 @@ export class KqBrandCreateEditComponent implements OnInit {
   public isShowAddBrand: boolean = false;
   public fileInput: any;
   public brandImageList: any[] = [];
+  public newBrand: Brand;
 
   public progressBarVisibility = true;
   public isSubmitted = false;
@@ -26,6 +29,8 @@ export class KqBrandCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isNotSubmitted = false;
+    this.isSubmitted = false;
     this.buildForm();
   }
 
@@ -41,6 +46,8 @@ export class KqBrandCreateEditComponent implements OnInit {
   }
 
   showAddBrand() {
+    this.isSubmitted = false;
+    this.isNotSubmitted = false;
     this.isShowAddBrand = true;
   }
 
@@ -48,16 +55,25 @@ export class KqBrandCreateEditComponent implements OnInit {
     this.fileInput = event;
     this.brandImageList = this.uploadService.getFile(this.fileInput);
     this.progressBarVisibility = true;
-    this.brandCreateEditForm.patchValue({
-      brandImageList: this.brandImageList
-    });
   }
 
   createNewBrand() {
-    this.brandService.create(this.brandCreateEditForm.value)
+    let data = {
+      name: this.brandCreateEditForm.value.name,
+      brandImageList: _.pluck(this.brandImageList, 'name')
+    }
+    this.brandService.create(data)
       .subscribe(
         (res) => {
-          console.log(res);
+          if (res.data) {
+            this.newBrand = res.data;
+            this.brandImageList = [];
+            this.brandCreateEditForm.reset();
+            this.isSubmitted = true;
+          } else {
+            this.isSubmitted = false;
+            this.isNotSubmitted = true;
+          }
         },
         (err) => {
           console.log('Error in create New Brand');

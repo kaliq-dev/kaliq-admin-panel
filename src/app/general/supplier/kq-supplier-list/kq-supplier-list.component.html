@@ -18,13 +18,13 @@
             <strong>KALIQ Supplier List</strong>
         </span>
   </div>
-  <div class="card-block">
+  <div class="card-block" *ngIf="supplierList.length>0">
     <table class="table table-hover nowrap" id="example1" width="100%">
       <thead class="thead-default">
       <tr>
         <th>Supplier Name</th>
         <th>Email</th>
-        <th>Contact no. </th>
+        <th>Contact no.</th>
         <th>Attachments</th>
         <th>Action</th>
       </tr>
@@ -33,22 +33,22 @@
       <tr>
         <th>Supplier Name</th>
         <th>Email</th>
-        <th>Contact no. </th>
+        <th>Contact no.</th>
         <th>Attachments</th>
         <th>Action</th>
       </tr>
       </tfoot>
       <tbody>
-      <tr *ngFor="let x of [1,2,3,4,5,6,7,8,9,10]">
-        <td><a href="javascript: void(0);" class="cat__core__link--underlined">kaliq xyz</a></td>
-        <td><a href="javascript: void(0);" class="cat__core__link--underlined">kaliqxyz@gmail.com</a></td>
+      <tr *ngFor="let supplier of supplierList">
+        <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ supplier.name }}</a></td>
+        <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ supplier.email }}</a></td>
         <td>
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> 012312313123132 </a>
+          <a href="javascript: void(0);" class="cat__core__link--underlined"> {{ supplier.contact_no }} </a>
         </td>
         <td>
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> Attach101 </a>
-          ,
-          <a href="javascript: void(0);" class="cat__core__link--underlined"> Attach102 </a>
+          <span style="margin-left:2px;margin-right: 2px" class="badge badge-primary"
+                *ngFor="let x of supplier.attachment_list"> {{ x }} </span>
+
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>

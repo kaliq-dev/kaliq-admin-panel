@@ -4,20 +4,21 @@ import {environment} from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class BrandService {
+export class CategoryService {
 
-  private brandUrl = environment.api_server + 'brand/';
+  private categoryUrl = environment.api_server + 'category/';
 
   constructor(private http: CustomHttpService) {
   }
 
   public create(data: any) {
-    let url = this.brandUrl + 'create';
+    let url = this.categoryUrl + 'create/';
     return this.http.post(url, data).map((res) => res.json());
   }
 
   public readAll() {
-    return this.http.get(this.brandUrl).map((res) => res.json());
+    return this.http.get(this.categoryUrl).map((res) => res.json());
   }
+
 
 }

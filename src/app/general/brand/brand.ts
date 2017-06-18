@@ -1,4 +1,7 @@
 export interface Brand {
-  name: string;
-  image: any;
+  id?: number;
+  name?: string;
+  image_list?: any[];
+  createdAt?:any;
+  updatedAt: any;
 }

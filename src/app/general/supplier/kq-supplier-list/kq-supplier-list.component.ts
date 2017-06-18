@@ -1,4 +1,9 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, Input, EventEmitter, SimpleChanges, OnChanges} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {SupplierService} from '../supplier.service';
+import {Supplier} from '../supplier';
+import * as _ from 'underscore';
+
 declare var $: any;
 declare var jQuery: any;
 
@@ -10,11 +15,30 @@ declare var jQuery: any;
 export class KqSupplierListComponent implements OnInit {
 
   @Output() onShowAddSupplier: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() newSupplier: Supplier;
 
-  constructor() {
+  public supplierList: Supplier[] = [];
+  public env = environment;
+
+  constructor(private supplierService: SupplierService) {
   }
 
   ngOnInit() {
+    this.supplierService.readAll()
+      .subscribe(
+        (res) => {
+          this.supplierList = res.data;
+        },
+        (err) => {
+          console.log("Error in readAll");
+        }
+      )
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['newSupplier'].currentValue) {
+      this.supplierList.unshift(changes['newSupplier'].currentValue);
+    }
   }
 
   showAddSupplier() {

@@ -10,7 +10,7 @@
             <strong>KALIQ Brand List</strong>
         </span>
   </div>
-  <div class="card-block">
+  <div class="card-block" *ngIf="brandList.length>0">
     <table class="table table-hover nowrap" id="example1" width="100%">
       <thead class="thead-default">
       <tr>
@@ -27,10 +27,10 @@
       </tr>
       </tfoot>
       <tbody>
-      <tr>
-        <td><a href="javascript: void(0);" class="cat__core__link--underlined">Honda</a></td>
+      <tr *ngFor="let brand of brandList">
+        <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ brand.name }}</a></td>
         <td><a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img
-          src="assets/modules/ecommerce/common/img/001.jpg"/></a>
+          src="http://localhost/home/abrar/Work/KALIQ/uploads/Selection_010.png"/></a>
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>

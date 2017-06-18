@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
 import * as _ from "underscore";
+import {CategoryService} from "../category.service";
+import {Category} from '../category';
 
 @Component({
   selector: 'app-kq-category-create-edit',
@@ -15,6 +17,7 @@ export class KqCategoryCreateEditComponent implements OnInit {
   public subCategoryList: any[] = [];
   public isShowAddCategory = false;
 
+  public newCategory: Category;
   public categoryImage: any;
   public progressBarVisibility = true;
   public fileInput: any;
@@ -22,7 +25,12 @@ export class KqCategoryCreateEditComponent implements OnInit {
   public isNotSubmitted = false;
   public uploadRoute = environment.api_server + 'category/upload-image';
 
-  constructor(private fb: FormBuilder, private uploadService: UploadService) {
+  public allSubCategoryCounter = 0;
+
+  public allSubCategoryList: any[] = [];
+  public categoryList: any[] = [];
+
+  constructor(private categoryService: CategoryService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
@@ -31,18 +39,20 @@ export class KqCategoryCreateEditComponent implements OnInit {
 
   buildForm() {
     this.categoryCreateEditForm = this.fb.group({
-      parentCategory: [''],
+      parentCategory: ['1'],
       name: [''],
       image: [''],
-      subCategory: ['']
+      subCategory: []
     })
   }
 
   addSubCategory() {
-    this.subCategoryList.push(1);
+    this.allSubCategoryCounter++;
+    this.subCategoryList.push(this.categoryList[0].id);
   }
 
   removeCategory(index) {
+    this.allSubCategoryCounter--;
     this.subCategoryList.splice(index, 1);
   }
 
@@ -55,12 +65,30 @@ export class KqCategoryCreateEditComponent implements OnInit {
   }
 
   createNewCategory() {
-    this.categoryCreateEditForm.patchValue({
-      image: this.categoryImage
-    });
-    console.log(this.categoryCreateEditForm.value);
-    this.categoryImage = undefined;
-    this.categoryCreateEditForm.reset();
+    let data = {
+      name: this.categoryCreateEditForm.value.name,
+      categoryImage: _.pluck(this.categoryImage, 'name'),
+      parentCategory: this.categoryCreateEditForm.value.parentCategory,
+      subCategory: this.categoryCreateEditForm.value.subCategory
+    }
+
+    this.categoryService.create(data)
+      .subscribe(
+        (res) => {
+          if (res.data) {
+            this.newCategory = res.data;
+            this.categoryImage = undefined;
+            this.categoryCreateEditForm.reset();
+            this.isSubmitted = true;
+          } else {
+            this.isSubmitted = false;
+            this.isNotSubmitted = false;
+          }
+        },
+        (err) => {
+          console.log("error in create new category");
+        }
+      )
   }
 
   submitForm() {
@@ -93,5 +121,23 @@ export class KqCategoryCreateEditComponent implements OnInit {
     this.progressBarVisibility = true;
   }
 
+
+  //prepare parent category list
+  categoryListData(event: any) {
+    this.categoryList = event;
+    this.allSubCategoryList = this.categoryList.splice(0,this.categoryList.length - 1);
+  }
+
+  onSubCategoryChange(event: any, index) {
+    this.subCategoryList[index] = parseInt(event.target.value);
+  }
+
+  createRange(number) {
+    let items: number[] = [];
+    for (let i = 1; i <= number; i++) {
+      items.push(i);
+    }
+    return items;
+  }
 
 }
