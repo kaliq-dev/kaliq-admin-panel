@@ -28,17 +28,20 @@ export class KqCategoryListComponent implements OnInit {
       .subscribe(
         (res) => {
           this.categoryList = res;
-          this.onCategoryListData.emit(res);
         },
         (err) => {
           console.log("error in readAll");
+        },
+        () => {
+          this.onCategoryListData.emit(this.categoryList);
         }
-      )
+      );
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['newCategory'].currentValue) {
-      this.categoryList.unshift(changes['newCategory'].currentValue);
+      this.getAllCategories();
+      // this.categoryList.unshift(changes['newCategory'].currentValue);
     }
   }
 

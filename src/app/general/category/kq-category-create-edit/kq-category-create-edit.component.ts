@@ -131,6 +131,9 @@ export class KqCategoryCreateEditComponent implements OnInit {
   categoryListData(data) {
     this.categoryList = data.event;
     this.allSubCategoryList = data.event;
+    this.categoryCreateEditForm.patchValue({
+      parentCategory: this.categoryList[this.categoryList.length - 1].id
+    });
   }
 
   onSubCategoryChange(event: any, index) {
