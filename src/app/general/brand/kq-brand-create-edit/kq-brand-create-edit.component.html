@@ -7,15 +7,17 @@
     <span>{{uploadProgress}}</span>
   </div>
 
+
   <div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Brand Created Successfully !!</div>
   <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Brand. Please Try
     Again !!
   </div>
-
+<!---->
   <div class="card-block">
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
+
           <form [formGroup]="brandCreateEditForm">
             <!--brand name-->
             <div class="form-group row">

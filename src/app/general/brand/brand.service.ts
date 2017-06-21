@@ -20,4 +20,9 @@ export class BrandService {
     return this.http.get(this.brandUrl).map((res) => res.json());
   }
 
+  public deleteById(id) {
+    let url = this.brandUrl + 'delete/' + id;
+    return this.http.delete(url).map((res) => res.json());
+  }
+
 }

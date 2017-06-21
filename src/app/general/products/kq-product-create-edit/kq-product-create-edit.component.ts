@@ -2,6 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
+import {SupplierService} from "../../supplier/supplier.service";
+import {CategoryService} from "../../category/category.service";
+import {BrandService} from "../../brand/brand.service";
+import {Supplier} from "../../supplier/supplier";
+import {Category} from "../../category/category";
+import {Brand} from "../../brand/brand";
+
+
 import * as _ from "underscore";
 declare var $: any;
 declare var jQuery: any;
@@ -27,13 +35,47 @@ export class KqProductCreateEditComponent implements OnInit {
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'product/upload-image';
 
+  public categoryList: Category[] = [];
+  public brandList: Brand[] = [];
+  public supplierList: Supplier[] = [];
 
-  constructor(private fb: FormBuilder, private uploadService: UploadService) {
+  constructor(private categoryService: CategoryService, private brandService: BrandService, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
+    this.getCategoryList();
+    this.getBrandList();
+    this.getSupplierList();
     this.buildForm();
     this.productImageList.push([]);
+  }
+
+
+  getCategoryList() {
+    this.categoryService.readAll()
+      .subscribe(
+        (res) => {
+          console.log(res);
+        }
+      )
+  }
+
+  getBrandList() {
+    this.brandService.readAll()
+      .subscribe(
+        (res) => {
+          console.log(res);
+        }
+      )
+  }
+
+  getSupplierList() {
+    this.supplierService.readAll()
+      .subscribe(
+        (res) => {
+          console.log(res);
+        }
+      )
   }
 
   buildForm() {

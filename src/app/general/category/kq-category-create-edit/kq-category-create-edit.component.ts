@@ -39,11 +39,11 @@ export class KqCategoryCreateEditComponent implements OnInit {
 
   buildForm() {
     this.categoryCreateEditForm = this.fb.group({
-      parentCategory: ['1'],
+      parentCategory: [],
       name: [''],
       image: [''],
       subCategory: []
-    })
+    });
   }
 
   addSubCategory() {
@@ -69,7 +69,11 @@ export class KqCategoryCreateEditComponent implements OnInit {
       name: this.categoryCreateEditForm.value.name,
       categoryImage: _.pluck(this.categoryImage, 'name'),
       parentCategory: this.categoryCreateEditForm.value.parentCategory,
-      subCategory: _.uniq(this.subCategoryList)
+      subCategory: this.categoryCreateEditForm.value.subCategory
+    }
+
+    if (!_.isEmpty(this.subCategoryList)) {
+      data.subCategory = _.uniq(this.subCategoryList)
     }
 
     this.categoryService.create(data)
@@ -112,7 +116,6 @@ export class KqCategoryCreateEditComponent implements OnInit {
             this.isNotSubmitted = true;
           }
         });
-
     }
   }
 
@@ -128,7 +131,6 @@ export class KqCategoryCreateEditComponent implements OnInit {
   categoryListData(data) {
     this.categoryList = data.event;
     this.allSubCategoryList = data.event;
-    // this.allSubCategoryList = this.allSubCategoryList.splice(0, this.allSubCategoryList.length - 1);
   }
 
   onSubCategoryChange(event: any, index) {

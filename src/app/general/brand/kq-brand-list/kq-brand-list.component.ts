@@ -46,4 +46,16 @@ export class KqBrandListComponent implements OnInit {
     });
     this.onShowAddBrand.emit(true);
   }
+
+  deleteBrand(id, index) {
+    this.brandService.deleteById(id)
+      .subscribe(
+        (res) => {
+          this.brandList.splice(index, 1);
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
 }

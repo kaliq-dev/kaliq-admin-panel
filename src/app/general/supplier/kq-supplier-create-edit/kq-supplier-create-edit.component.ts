@@ -136,8 +136,6 @@ export class KqSupplierCreateEditComponent implements OnInit {
     this.supplierAttachment = this.uploadService.getFile(this.fileInput);
     this.supplierAttachmentList.splice(index, 0, this.supplierAttachment);
     this.progressBarVisibility = true;
-
-    console.log(this.supplierAttachmentList);
   }
 
 }

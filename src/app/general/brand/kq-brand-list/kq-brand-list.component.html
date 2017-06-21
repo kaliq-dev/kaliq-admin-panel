@@ -27,7 +27,7 @@
       </tr>
       </tfoot>
       <tbody>
-      <tr *ngFor="let brand of brandList">
+      <tr *ngFor="let brand of brandList;let i=index">
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ brand.name }}</a></td>
         <td><a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img
           src="http://localhost/home/abrar/Work/KALIQ/uploads/Selection_010.png"/></a>
@@ -35,7 +35,7 @@
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
             Edit</a>
-          <a href="javascript: void(0);" class="cat__core__link--underlined">
+          <a (click)="deleteBrand(brand.id,i)" href="javascript: void(0);" class="cat__core__link--underlined">
             <small><i class="icmn-cross"><!-- --></i></small>
             Remove</a>
         </td>

@@ -48,5 +48,17 @@ export class KqSupplierListComponent implements OnInit {
     this.onShowAddSupplier.emit(true);
   }
 
+  deleteSupplier(id, index) {
+    this.supplierService.deleteById(id)
+      .subscribe(
+        (res) => {
+          this.supplierList.splice(index, 1);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
 
 }

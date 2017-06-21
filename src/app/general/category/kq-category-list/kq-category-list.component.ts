@@ -16,7 +16,8 @@ export class KqCategoryListComponent implements OnInit {
 
   public categoryList: Category[] = [];
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService) {
+  }
 
   ngOnInit() {
     this.getAllCategories();
@@ -37,7 +38,7 @@ export class KqCategoryListComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['newCategory'].currentValue) {
-      this.getAllCategories();
+      this.categoryList.unshift(changes['newCategory'].currentValue);
     }
   }
 
@@ -46,6 +47,18 @@ export class KqCategoryListComponent implements OnInit {
       $('.dropify').dropify();
     });
     this.onShowAddCategory.emit(true);
+  }
+
+  deleteCategory(id, index) {
+    this.categoryService.deleteById(id)
+      .subscribe(
+        (res) => {
+          this.categoryList.splice(index, 1);
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
   }
 
 }

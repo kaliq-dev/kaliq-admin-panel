@@ -20,5 +20,10 @@ export class CategoryService {
     return this.http.get(this.categoryUrl).map((res) => res.json());
   }
 
+  public deleteById(id) {
+    let url = this.categoryUrl + 'delete/' + id;
+    return this.http.delete(url).map((res) => res.json());
+  }
+
 
 }

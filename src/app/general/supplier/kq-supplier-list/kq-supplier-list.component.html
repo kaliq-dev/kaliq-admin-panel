@@ -39,7 +39,7 @@
       </tr>
       </tfoot>
       <tbody>
-      <tr *ngFor="let supplier of supplierList">
+      <tr *ngFor="let supplier of supplierList;let i=index">
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ supplier.name }}</a></td>
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ supplier.email }}</a></td>
         <td>
@@ -53,7 +53,7 @@
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
             Edit</a>
-          <a href="javascript: void(0);" class="cat__core__link--underlined">
+          <a (click)="deleteSupplier(supplier.id,i)" href="javascript: void(0);" class="cat__core__link--underlined">
             <small><i class="icmn-cross"><!-- --></i></small>
             Remove</a>
         </td>

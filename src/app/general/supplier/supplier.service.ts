@@ -20,4 +20,9 @@ export class SupplierService {
     return this.http.get(this.supplierUrl).map((res) => res.json());
   }
 
+  public deleteById(id) {
+    let url = this.supplierUrl + 'delete/' + id;
+    return this.http.delete(url).map((res) => res.json());
+  }
+
 }
