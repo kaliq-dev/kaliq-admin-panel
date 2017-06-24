@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ProductService} from '../product.service';
 import {Product} from '../product';
 import * as _ from 'underscore';
@@ -14,6 +14,7 @@ declare var jQuery: any;
 })
 export class KqProductListComponent implements OnInit {
   @Output() onShowProductAddForm: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() newProduct: Product;
 
   public productList: Product[] = [];
   public env = environment;
@@ -34,6 +35,13 @@ export class KqProductListComponent implements OnInit {
     this.getProductList();
   }
 
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['newProduct'].currentValue) {
+      this.getProductList();
+    }
+  }
+
   showAddProduct() {
     $(function () {
       $('.dropify').dropify();
@@ -46,7 +54,9 @@ export class KqProductListComponent implements OnInit {
     this.productService.readAll()
       .subscribe(
         (res) => {
-          console.log(res);
+          if (res.data) {
+            this.productList = res.data;
+          }
         },
         (err) => {
           console.log("Error in productService readAll");

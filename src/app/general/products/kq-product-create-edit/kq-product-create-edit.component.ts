@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
@@ -9,6 +9,7 @@ import {Supplier} from "../../supplier/supplier";
 import {Category} from "../../category/category";
 import {Brand} from "../../brand/brand";
 import {ProductService} from '../product.service';
+import {Product} from "../product";
 
 import * as _ from "underscore";
 declare var $: any;
@@ -30,14 +31,17 @@ export class KqProductCreateEditComponent implements OnInit {
   public productImage: any;
 
   public fileInput: any;
-  public isSubmitted = false;
-  public isNotSubmitted = false;
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'product/upload-image';
 
   public categoryList: Category[] = [];
   public brandList: Brand[] = [];
   public supplierList: Supplier[] = [];
+
+  public isSubmitted = false;
+  public isNotSubmitted = false;
+
+  public newProduct: Product;
 
   constructor(private productService: ProductService, private categoryService: CategoryService, private brandService: BrandService, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
@@ -112,15 +116,20 @@ export class KqProductCreateEditComponent implements OnInit {
     this.productService.create(data)
       .subscribe(
         (res) => {
-          console.log(res);
+          if (res.data) {
+            this.newProduct = res.data;
+            this.isSubmitted = true;
+            this.image_list = [];
+            this.productCreateEditForm.reset();
+          } else {
+            this.isNotSubmitted = false;
+          }
         },
         (err) => {
           console.log("Error in productService create");
         }
-      )
+      );
 
-    this.image_list = [];
-    this.productCreateEditForm.reset();
   }
 
   submitForm() {
@@ -129,7 +138,7 @@ export class KqProductCreateEditComponent implements OnInit {
         this.uploadService.uploadFile(this.uploadRoute, image)
           .then((res) => {
             if (res) {
-              this.isSubmitted = true;
+              // this.isSubmitted = true;
             } else {
               this.isSubmitted = false;
             }

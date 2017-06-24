@@ -108,7 +108,6 @@ export class KqCategoryCreateEditComponent implements OnInit {
           }
         })
         .then(() => {
-          console.log("File upload complete");
           this.createNewCategory();
         })
         .catch((err) => {
