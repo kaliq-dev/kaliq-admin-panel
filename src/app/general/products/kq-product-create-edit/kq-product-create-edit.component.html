@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form [formGroup]="productCreateEditForm">
+          <form [formGroup]="productCreateEditForm" (submit)="submitForm()">
             <!--product name-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Product Name</label>
@@ -24,11 +24,8 @@
               <label class="col-md-3 col-form-label" for="l13">Supplier</label>
               <div class="col-md-9">
                 <select class="form-control" formControlName="supplier" id="l13">
-                  <option>Supplier A</option>
-                  <option>Supplier B</option>
-                  <option>Supplier C</option>
-                  <option>Supplier D</option>
-                  <option>Supplier E</option>
+                  <option *ngFor="let supplier of supplierList" value="{{ supplier.id }}">{{ supplier?.name }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -38,11 +35,7 @@
               <label class="col-md-3 col-form-label" for="l13">Category</label>
               <div class="col-md-9">
                 <select class="form-control" id="l13" formControlName="category">
-                  <option>Computer Accessories</option>
-                  <option>Laptop & Tablets</option>
-                  <option>Food</option>
-                  <option>Sports</option>
-                  <option>Movies</option>
+                  <option *ngFor="let category of categoryList" value="{{ category.id }}">{{ category?.name }}</option>
                 </select>
               </div>
             </div>
@@ -52,11 +45,7 @@
               <label class="col-md-3 col-form-label" for="l13">Brand</label>
               <div class="col-md-9">
                 <select class="form-control" id="l13" formControlName="brand">
-                  <option>Apple</option>
-                  <option>Microsoft</option>
-                  <option>Google</option>
-                  <option>IBM</option>
-                  <option>Sony</option>
+                  <option *ngFor="let brand of brandList" value="{{ brand.id }}"> {{ brand?.name }}</option>
                 </select>
               </div>
             </div>
@@ -86,19 +75,14 @@
               <label class="col-md-3 col-form-label" for="l13">Sale / Offer</label>
               <div class="col-md-9">
                 <select class="form-control" id="l13" formControlName="sale">
-                  <option> --</option>
-                  <option>50% off</option>
-                  <option>Black Friday Sale</option>
-                  <option>2% off</option>
-                  <option>10% off</option>
-                  <option>Eid sale</option>
+                  <option>--</option>
                 </select>
               </div>
             </div>
             <!--create gallery-->
             <!-- START: forms/file-uploads -->
             <!--attachments-->
-            <div class="form-group row" *ngFor="let x of productImageList;let i=index">
+            <div class="form-group row" *ngFor="let x of image_list;let i=index">
               <label class="col-md-3 col-form-label" for="l16">
                 <span *ngIf="i==0"> Product Images : </span>
               </label>
@@ -139,8 +123,7 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
-                          (click)="submitForm()">Submit
+                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit
                   </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
 import {SupplierService} from "../../supplier/supplier.service";
@@ -8,7 +8,7 @@ import {BrandService} from "../../brand/brand.service";
 import {Supplier} from "../../supplier/supplier";
 import {Category} from "../../category/category";
 import {Brand} from "../../brand/brand";
-
+import {ProductService} from '../product.service';
 
 import * as _ from "underscore";
 declare var $: any;
@@ -26,7 +26,7 @@ export class KqProductCreateEditComponent implements OnInit {
   public isShowAddProduct: boolean = false;
 
   public progressBarVisibility = true;
-  public productImageList: any[] = [];
+  public image_list: any[] = [];
   public productImage: any;
 
   public fileInput: any;
@@ -39,7 +39,7 @@ export class KqProductCreateEditComponent implements OnInit {
   public brandList: Brand[] = [];
   public supplierList: Supplier[] = [];
 
-  constructor(private categoryService: CategoryService, private brandService: BrandService, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
+  constructor(private productService: ProductService, private categoryService: CategoryService, private brandService: BrandService, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class KqProductCreateEditComponent implements OnInit {
     this.getBrandList();
     this.getSupplierList();
     this.buildForm();
-    this.productImageList.push([]);
+    this.image_list.push([]);
   }
 
 
@@ -55,53 +55,77 @@ export class KqProductCreateEditComponent implements OnInit {
     this.categoryService.readAll()
       .subscribe(
         (res) => {
-          console.log(res);
+          this.categoryList = res.data;
         }
-      )
+      );
   }
 
   getBrandList() {
     this.brandService.readAll()
       .subscribe(
         (res) => {
-          console.log(res);
+          this.brandList = res.data;
         }
-      )
+      );
   }
 
   getSupplierList() {
     this.supplierService.readAll()
       .subscribe(
         (res) => {
-          console.log(res);
+          this.supplierList = res.data;
         }
-      )
+      );
   }
 
   buildForm() {
     this.productCreateEditForm = this.fb.group({
-      name: [''],
-      supplier: [''],
-      category: [''],
-      brand: [''],
-      price: [''],
+      name: ['', Validators.required],
+      supplier: ['', Validators.required],
+      category: ['', Validators.required],
+      brand: ['', Validators.required],
+      price: ['', Validators.required],
       vat: [''],
       sale: [''],
-      productImageList: ['']
+      image_list: ['']
     });
   }
 
   createNewProduct() {
-    this.productCreateEditForm.patchValue({
-      productImageList: this.productImageList
+    let data = {
+      name: this.productCreateEditForm.value.name,
+      supplier: this.productCreateEditForm.value.supplier,
+      category: this.productCreateEditForm.value.category,
+      brand: this.productCreateEditForm.value.brand,
+      price: this.productCreateEditForm.value.price,
+      vat: this.productCreateEditForm.value.vat,
+      sale: this.productCreateEditForm.value.sale,
+      image_list: []
+    }
+
+    _.each(this.image_list, (item) => {
+      if (!_.isEmpty(item)) {
+        data.image_list.push(item[0].name);
+      }
     });
-    this.productImageList = [];
+
+    this.productService.create(data)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log("Error in productService create");
+        }
+      )
+
+    this.image_list = [];
     this.productCreateEditForm.reset();
   }
 
   submitForm() {
     if (this.productCreateEditForm.value.name) {
-      _.each(this.productImageList, (image) => {
+      _.each(this.image_list, (image) => {
         this.uploadService.uploadFile(this.uploadRoute, image)
           .then((res) => {
             if (res) {
@@ -127,11 +151,11 @@ export class KqProductCreateEditComponent implements OnInit {
     $(function () {
       $('.dropify').dropify();
     });
-    this.productImageList.push([]);
+    this.image_list.push([]);
   }
 
   removeGalleryImage(index) {
-    this.productImageList.splice(index, 1);
+    this.image_list.splice(index, 1);
   }
 
   showAddProduct() {
@@ -151,10 +175,10 @@ export class KqProductCreateEditComponent implements OnInit {
     });
     this.fileInput = event;
     this.productImage = this.uploadService.getFile(this.fileInput);
-    this.productImageList.splice(index, 0, this.productImage);
+    this.image_list.splice(index, 0, this.productImage);
     this.progressBarVisibility = true;
     this.productCreateEditForm.patchValue({
-      productImageList: this.productImageList
+      image_list: this.image_list
     });
   }
 }

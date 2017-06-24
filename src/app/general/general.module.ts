@@ -11,11 +11,15 @@ import {KqSupplierListComponent} from './supplier/kq-supplier-list/kq-supplier-l
 import {KqBrandCreateEditComponent} from './brand/kq-brand-create-edit/kq-brand-create-edit.component';
 import {KqBrandListComponent} from './brand/kq-brand-list/kq-brand-list.component';
 import {KqProductCreateEditComponent} from './products/kq-product-create-edit/kq-product-create-edit.component';
-import {UploadService} from "./upload.service";
+import {UploadService} from './upload.service';
 import {BrandService} from './brand/brand.service';
 import {CustomHttpService} from '../custom-http.service';
-import {SupplierService} from "./supplier/supplier.service";
-import {CategoryService} from "./category/category.service";
+import {SupplierService} from './supplier/supplier.service';
+import {CategoryService} from './category/category.service';
+import {ProductService} from './products/product.service';
+import {KqCustomerDashboardComponent} from './customer-panel/kq-customer-dashboard/kq-customer-dashboard.component';
+import {KqSupplierDashboardComponent} from './supplier-panel/kq-supplier-dashboard/kq-supplier-dashboard.component';
+import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashboard/kq-admin-panel-dashboard.component';
 
 @NgModule({
   imports: [
@@ -33,6 +37,9 @@ import {CategoryService} from "./category/category.service";
     KqBrandCreateEditComponent,
     KqBrandListComponent,
     KqProductCreateEditComponent,
+    KqCustomerDashboardComponent,
+    KqSupplierDashboardComponent,
+    KqAdminPanelDashboardComponent,
   ],
   exports: [],
   providers: [
@@ -40,7 +47,8 @@ import {CategoryService} from "./category/category.service";
     BrandService,
     CustomHttpService,
     SupplierService,
-    CategoryService
+    CategoryService,
+    ProductService
   ]
 })
 export class GeneralModule {

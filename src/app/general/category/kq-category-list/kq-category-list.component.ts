@@ -27,7 +27,7 @@ export class KqCategoryListComponent implements OnInit {
     this.categoryService.readAll()
       .subscribe(
         (res) => {
-          this.categoryList = res;
+          this.categoryList = res.data;
         },
         (err) => {
           console.log("error in readAll");
