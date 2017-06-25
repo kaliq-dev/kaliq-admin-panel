@@ -18,11 +18,13 @@ export class KqProductListComponent implements OnInit {
 
   public productList: Product[] = [];
   public env = environment;
+  public image: any;
 
   constructor(private productService: ProductService) {
   }
 
   ngOnInit() {
+    this.image = undefined;
     $(function () {
       // Datatables
       $('#example1').DataTable({
@@ -64,4 +66,21 @@ export class KqProductListComponent implements OnInit {
       )
   }
 
+  showImage(x: any) {
+    this.image = x;
+  }
+
+  remove(id, index) {
+    this.productService.deleteById(id)
+      .subscribe(
+        (res) => {
+          if (res.status) {
+            this.productList.splice(index, 1);
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
 }

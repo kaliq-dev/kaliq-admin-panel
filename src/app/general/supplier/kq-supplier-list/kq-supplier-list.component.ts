@@ -19,11 +19,13 @@ export class KqSupplierListComponent implements OnInit {
 
   public supplierList: Supplier[] = [];
   public env = environment;
+  public image: any;
 
   constructor(private supplierService: SupplierService) {
   }
 
   ngOnInit() {
+    this.image = undefined;
     this.supplierService.readAll()
       .subscribe(
         (res) => {
@@ -60,5 +62,7 @@ export class KqSupplierListComponent implements OnInit {
       );
   }
 
-
+  showImage(x: any) {
+    this.image = x;
+  }
 }

@@ -1,5 +1,8 @@
 <!-- START: ecommerce/products-list -->
 <section class="card">
+  <div *ngIf="image">
+    <app-display-single-image [image]="image"></app-display-single-image>
+  </div>
   <div class="card-header">
     <div class="dropdown pull-right">
       <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddProduct()">
@@ -48,22 +51,26 @@
       <tr *ngFor="let product of productList">
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ product?.name }}</a></td>
         <td>
+          <span *ngIf="product?.image_list.length>0">
           <span style="margin-left:2px;margin-right: 2px" class="badge badge-primary"
                 *ngFor="let x of product?.image_list;let i=index">
-            <span *ngIf="i<4">{{ x }}</span>
-
+            <span *ngIf="i<4">
+               <a href="javascript:void(0)" (click)="showImage(x)" style="color:#000;">  {{ x }}  </a>
+            </span>
+          </span>
           </span>
           <a *ngIf="product?.image_list.length>4" href="javascript:void(0)"> More</a>
         </td>
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ product?.price }}</a></td>
-        <td> {{ product?.vat}}</td>
+        <td> {{ product?.vat }}</td>
         <td>{{ product?.category_name }}</td>
         <td>{{ product?.brand_name }}</td>
         <td>{{ product?.supplier_name }}</td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
             View</a>
-          <a href="javascript: void(0);" class="cat__core__link--underlined">
+          <a (click)="remove(product?.id,i)"  href="javascript: void(0);"
+             class="cat__core__link--underlined">
             <small><i class="icmn-cross"><!-- --></i></small>
             Remove</a>
         </td>

@@ -44,9 +44,12 @@
         <td>
           <!--<a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img-->
           <!--src="assets/modules/ecommerce/common/img/001.jpg"/></a>-->
+          <span *ngIf="category?.image_list?.length>0">
+          <a *ngFor="let img of category?.image_list" href="javascript: void(0);"
+             class="cat__ecommerce__dashboard__list__img"><img
+            [src]="img"/></a>
+          </span>
 
-          <a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img
-            src="../../uploads/{{ category?.image_list[0]?.name }}"/></a>
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined"> {{ category?.parent_name }} </a>

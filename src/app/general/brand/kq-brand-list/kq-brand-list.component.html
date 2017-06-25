@@ -29,11 +29,16 @@
       <tbody>
       <tr *ngFor="let brand of brandList;let i=index">
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ brand.name }}</a></td>
-        <td><a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img
-          src="http://localhost/home/abrar/Work/KALIQ/uploads/Selection_010.png"/></a>
+        <td>
+          <span *ngIf="brand?.image_list?.length>0">
+          <a *ngFor="let img of brand?.image_list" href="javascript: void(0);"
+             class="cat__ecommerce__dashboard__list__img"><img
+            [src]="img"/></a>
+            </span>
         </td>
         <td>
-          <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
+          <a (click)="editBrand(brand)" href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i
+            class="icmn-pencil"><!-- --></i>
             Edit</a>
           <a (click)="deleteBrand(brand.id,i)" href="javascript: void(0);" class="cat__core__link--underlined">
             <small><i class="icmn-cross"><!-- --></i></small>

@@ -1,5 +1,8 @@
 <!-- START: ecommerce/products-list -->
 <section class="card">
+  <div *ngIf="image">
+    <app-display-single-image [image]="image"></app-display-single-image>
+  </div>
   <div class="card-header">
     <div class="dropdown pull-right">
       <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddSupplier()">
@@ -46,9 +49,12 @@
           <a href="javascript: void(0);" class="cat__core__link--underlined"> {{ supplier.contact_no }} </a>
         </td>
         <td>
+          <span *ngIf="supplier?.attachment_list?.length>0">
           <span style="margin-left:2px;margin-right: 2px" class="badge badge-primary"
-                *ngFor="let x of supplier.attachment_list"> {{ x }} </span>
-
+                *ngFor="let x of supplier.attachment_list">
+          <a href="javascript:void(0)" (click)="showImage(x)" style="color:#000;">  {{ x }} </a>
+          </span>
+            </span>
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>

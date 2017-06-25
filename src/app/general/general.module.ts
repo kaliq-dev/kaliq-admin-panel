@@ -20,6 +20,7 @@ import {ProductService} from './products/product.service';
 import {KqCustomerDashboardComponent} from './customer-panel/kq-customer-dashboard/kq-customer-dashboard.component';
 import {KqSupplierDashboardComponent} from './supplier-panel/kq-supplier-dashboard/kq-supplier-dashboard.component';
 import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashboard/kq-admin-panel-dashboard.component';
+import {DisplaySingleImageComponent} from './display-image/display-single-image/display-single-image.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashb
     KqCustomerDashboardComponent,
     KqSupplierDashboardComponent,
     KqAdminPanelDashboardComponent,
+    DisplaySingleImageComponent,
   ],
   exports: [],
   providers: [

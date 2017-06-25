@@ -14,7 +14,10 @@ import * as _ from 'underscore';
 export class KqBrandCreateEditComponent implements OnInit {
 
   public brandCreateEditForm: FormGroup;
+
   public isShowAddBrand: boolean = false;
+  public isShowEditBrand: boolean = false;
+
   public fileInput: any;
   public brandImageList: any[] = [];
   public newBrand: Brand;
@@ -92,5 +95,12 @@ export class KqBrandCreateEditComponent implements OnInit {
           }
         })
     }
+  }
+
+
+  //edit methods
+  editBrand(event: any) {
+    this.isShowEditBrand = true;
+    console.log(event);
   }
 }

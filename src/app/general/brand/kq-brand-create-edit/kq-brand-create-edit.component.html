@@ -57,4 +57,4 @@
 </section>
 <!-- END: forms/basic-forms-elements -->
 <!--start of brand list component-->
-<app-kq-brand-list (onShowAddBrand)="showAddBrand()" [newBrand]="newBrand"></app-kq-brand-list>
+<app-kq-brand-list (onEditBrand)="editBrand($event)" (onShowAddBrand)="showAddBrand()" [newBrand]="newBrand"></app-kq-brand-list>

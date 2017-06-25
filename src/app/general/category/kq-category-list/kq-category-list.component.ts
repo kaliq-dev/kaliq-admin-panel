@@ -1,8 +1,11 @@
 import {Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges} from '@angular/core';
 import {CategoryService} from "../category.service";
 import {Category} from "../category";
+import * as _ from 'underscore';
+
 declare var $: any;
 declare var jQuery: any;
+declare var require: any;
 
 @Component({
   selector: 'app-kq-category-list',
@@ -16,6 +19,7 @@ export class KqCategoryListComponent implements OnInit {
 
   public categoryList: Category[] = [];
 
+
   constructor(private categoryService: CategoryService) {
   }
 
@@ -27,7 +31,15 @@ export class KqCategoryListComponent implements OnInit {
     this.categoryService.readAll()
       .subscribe(
         (res) => {
-          this.categoryList = res.data;
+          this.categoryList = res.data.map((category) => {
+            if (category.image_list.length > 0) {
+              category.image_list = category.image_list.map((item) => {
+                item = require("/home/abrar/Work/KALIQ/uploads/" + item);
+                return item;
+              });
+            }
+            return category;
+          });
         },
         (err) => {
           console.log("error in readAll");

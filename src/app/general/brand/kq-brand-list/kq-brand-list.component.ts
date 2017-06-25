@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 
 declare var $: any;
 declare var jQuery: any;
+declare var require: any;
 
 @Component({
   selector: 'app-kq-brand-list',
@@ -14,6 +15,7 @@ declare var jQuery: any;
 })
 export class KqBrandListComponent implements OnInit {
   @Output() onShowAddBrand: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onEditBrand: EventEmitter<any> = new EventEmitter<any>();
   @Input() newBrand: Brand;
 
   public brandList: Brand[] = [];
@@ -26,7 +28,16 @@ export class KqBrandListComponent implements OnInit {
     this.brandService.readAll()
       .subscribe(
         (res) => {
-          this.brandList = res.data;
+          this.brandList = res.data.map((brand) => {
+            if (brand.image_list.length > 0) {
+              brand.image_list = brand.image_list.map((item) => {
+                // item = require("/home/abrar/Work/KALIQ/uploads/" + item);
+                item = require("/home/abrar/Work/KALIQ/uploads/" + item);
+                return item;
+              });
+            }
+            return brand;
+          })
         },
         (err) => {
           console.log("Error in readAll");
@@ -57,5 +68,9 @@ export class KqBrandListComponent implements OnInit {
           console.log(err);
         }
       )
+  }
+
+  editBrand(data) {
+    this.onEditBrand.emit(data);
   }
 }
