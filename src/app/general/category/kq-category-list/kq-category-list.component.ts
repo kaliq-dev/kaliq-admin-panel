@@ -19,6 +19,8 @@ export class KqCategoryListComponent implements OnInit {
 
   public categoryList: Category[] = [];
 
+  public image: any;
+
 
   constructor(private categoryService: CategoryService) {
   }
@@ -32,8 +34,8 @@ export class KqCategoryListComponent implements OnInit {
       .subscribe(
         (res) => {
           this.categoryList = res.data.map((category) => {
-            if (category.image_list.length > 0) {
-              category.image_list = category.image_list.map((item) => {
+            if (category['image_list'].length > 0) {
+              category['image_list'] = category['image_list'].map((item) => {
                 item = require("/home/abrar/Work/KALIQ/uploads/" + item);
                 return item;
               });
@@ -74,6 +76,11 @@ export class KqCategoryListComponent implements OnInit {
           console.log(err);
         }
       )
+  }
+
+  showImage(img: any) {
+    let arr = img.split(".");
+    this.image = arr[0] + '.' + arr[arr.length - 1];
   }
 
 }

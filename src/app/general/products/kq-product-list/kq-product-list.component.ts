@@ -33,7 +33,6 @@ export class KqProductListComponent implements OnInit {
         "autoWidth": false
       });
     });
-
     this.getProductList();
   }
 

@@ -1,14 +1,14 @@
+<div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Category Created Successfully !!</div>
+<div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Category. Please Try
+  Again !!
+</div>
+
 <!-- START: forms/basic-forms-elements -->
 <section class="card" *ngIf="isShowAddCategory">
   <div class="card-header">
         <span class="cat__core__title">
             <strong>Add A New Category For KALIQ.com</strong>
         </span>
-  </div>
-
-  <div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Create Category Successfully !!</div>
-  <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Category. Please Try
-    Again !!
   </div>
 
   <div class="card-block">

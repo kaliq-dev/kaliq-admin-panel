@@ -1,5 +1,8 @@
 <!-- START: ecommerce/products-list -->
 <section class="card">
+  <div *ngIf="image">
+    <app-display-single-image [image]="image"></app-display-single-image>
+  </div>
   <div class="card-header">
     <div class="dropdown pull-right">
       <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddBrand()">
@@ -32,7 +35,7 @@
         <td>
           <span *ngIf="brand?.image_list?.length>0">
           <a *ngFor="let img of brand?.image_list" href="javascript: void(0);"
-             class="cat__ecommerce__dashboard__list__img"><img
+             class="cat__ecommerce__dashboard__list__img" (click)="showImage(img)"><img
             [src]="img"/></a>
             </span>
         </td>

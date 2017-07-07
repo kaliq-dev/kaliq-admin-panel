@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 import {UploadService} from "../../upload.service";
 import {environment} from '../../../../environments/environment';
 import {BrandService} from '../brand.service';
@@ -28,7 +29,7 @@ export class KqBrandCreateEditComponent implements OnInit {
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'brand/upload-image';
 
-  constructor(private fb: FormBuilder, private uploadService: UploadService, private brandService: BrandService) {
+  constructor(private router: Router, private fb: FormBuilder, private uploadService: UploadService, private brandService: BrandService) {
   }
 
   ngOnInit() {
@@ -73,6 +74,7 @@ export class KqBrandCreateEditComponent implements OnInit {
             this.brandImageList = [];
             this.brandCreateEditForm.reset();
             this.isSubmitted = true;
+            this.router.navigate(['/kq/brand']);
           } else {
             this.isSubmitted = false;
             this.isNotSubmitted = true;
@@ -81,7 +83,7 @@ export class KqBrandCreateEditComponent implements OnInit {
         (err) => {
           console.log('Error in create New Brand');
         }
-      )
+      );
   }
 
   submitForm() {
@@ -91,12 +93,12 @@ export class KqBrandCreateEditComponent implements OnInit {
           if (res) {
             this.createNewBrand();
           } else {
+            this.isNotSubmitted = true;
             this.isSubmitted = false;
           }
         })
     }
   }
-
 
   //edit methods
   editBrand(event: any) {

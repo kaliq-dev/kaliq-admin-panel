@@ -1,5 +1,8 @@
 <!-- START: ecommerce/products-list -->
 <section class="card">
+  <div *ngIf="image">
+    <app-display-single-image [image]="image"></app-display-single-image>
+  </div>
   <div class="card-header">
     <div class="dropdown pull-right">
       <button type="button" class="btn btn-primary" aria-expanded="false" (click)="showAddCategory()">
@@ -42,22 +45,22 @@
       <tr *ngFor="let category of categoryList;let i=index">
         <td><a href="javascript: void(0);" class="cat__core__link--underlined">{{ category?.name }}</a></td>
         <td>
-          <!--<a href="javascript: void(0);" class="cat__ecommerce__dashboard__list__img"><img-->
-          <!--src="assets/modules/ecommerce/common/img/001.jpg"/></a>-->
           <span *ngIf="category?.image_list?.length>0">
           <a *ngFor="let img of category?.image_list" href="javascript: void(0);"
-             class="cat__ecommerce__dashboard__list__img"><img
+             class="cat__ecommerce__dashboard__list__img" (click)="showImage(img)"><img
             [src]="img"/></a>
           </span>
-
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined"> {{ category?.parent_name }} </a>
         </td>
         <td>
+          <span *ngIf="category?.sub_category_list?.length > 0">
           <span style="margin-left:2px;margin-right:2px" class="badge badge-primary"
-                *ngFor="let x of category?.sub_category_list"> {{
-            x?.name }} </span>
+                *ngFor="let x of category?.sub_category_list">
+            {{ x?.name }}
+          </span>
+          </span>
         </td>
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
@@ -71,4 +74,3 @@
     </table>
   </div>
 </section>
-<!-- END: ecommerce/products-list -->

@@ -1,14 +1,13 @@
-<!-- START: forms/basic-forms-elements -->
+<div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Product Added Successfully !!</div>
+<div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Product. Please Try
+  Again !!
+</div>
+
 <section class="card" *ngIf="isShowAddProduct">
   <div class="card-header">
         <span class="cat__core__title">
             <strong>Add A New Product For KALIQ.com</strong>
         </span>
-  </div>
-
-  <div class="alert alert-success" role="alert" *ngIf="isSubmitted">New Product Added Successfully !!</div>
-  <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Product. Please Try
-    Again !!
   </div>
 
   <div class="card-block">

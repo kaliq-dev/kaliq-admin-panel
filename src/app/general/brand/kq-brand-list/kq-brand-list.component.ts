@@ -21,17 +21,19 @@ export class KqBrandListComponent implements OnInit {
   public brandList: Brand[] = [];
   public env = environment;
 
+  public image: any;
+
   constructor(private brandService: BrandService) {
   }
 
   ngOnInit() {
+    this.image = undefined;
     this.brandService.readAll()
       .subscribe(
         (res) => {
           this.brandList = res.data.map((brand) => {
             if (brand.image_list.length > 0) {
               brand.image_list = brand.image_list.map((item) => {
-                // item = require("/home/abrar/Work/KALIQ/uploads/" + item);
                 item = require("/home/abrar/Work/KALIQ/uploads/" + item);
                 return item;
               });
@@ -67,10 +69,15 @@ export class KqBrandListComponent implements OnInit {
         (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
   editBrand(data) {
     this.onEditBrand.emit(data);
+  }
+
+  showImage(img: any) {
+    let arr = img.split(".");
+    this.image = arr[0] + '.' + arr[arr.length - 1];
   }
 }

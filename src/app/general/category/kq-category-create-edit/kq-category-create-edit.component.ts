@@ -81,11 +81,12 @@ export class KqCategoryCreateEditComponent implements OnInit {
         (res) => {
           if (res.data) {
             this.newCategory = res.data;
-            this.categoryImage = undefined;
-            this.subCategoryList = [];
+            // this.categoryImage = undefined;
+            // this.subCategoryList = [];
             this.allSubCategoryCounter = 0;
             this.categoryCreateEditForm.reset();
             this.isSubmitted = true;
+            this.isShowAddCategory = false;
           } else {
             this.isSubmitted = false;
             this.isNotSubmitted = false;

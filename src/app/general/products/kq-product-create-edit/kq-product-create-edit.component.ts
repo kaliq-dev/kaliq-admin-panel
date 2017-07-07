@@ -121,6 +121,7 @@ export class KqProductCreateEditComponent implements OnInit {
             this.isSubmitted = true;
             this.image_list = [];
             this.productCreateEditForm.reset();
+            this.isShowAddProduct = false;
           } else {
             this.isNotSubmitted = false;
           }

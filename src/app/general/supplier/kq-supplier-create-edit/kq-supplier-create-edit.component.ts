@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from '@angular/router';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
 import * as _ from "underscore";
@@ -30,7 +31,7 @@ export class KqSupplierCreateEditComponent implements OnInit {
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'supplier/upload-image';
 
-  constructor(private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
+  constructor(private router: Router, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
@@ -67,6 +68,7 @@ export class KqSupplierCreateEditComponent implements OnInit {
       .subscribe(
         (res) => {
           if (res.data) {
+            this.isShowAddSupplier = false;
             this.newSupplier = res.data;
             this.supplierCreateEditForm.reset();
             this.isSubmitted = true;
