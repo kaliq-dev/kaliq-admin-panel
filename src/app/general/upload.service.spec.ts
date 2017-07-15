@@ -1,5 +1,4 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { UploadService } from './upload.service';
 
 describe('UploadService', () => {

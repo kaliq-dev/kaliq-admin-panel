@@ -3,7 +3,6 @@ declare var $: any;
 declare var jQuery: any;
 declare var Chartist: any;
 
-
 @Component({
   selector: 'app-kq-admin-dashboard',
   templateUrl: './kq-admin-dashboard.component.html',
@@ -15,7 +14,6 @@ export class KqAdminDashboardComponent implements OnInit {
 
   ngOnInit(){
     $(function () {
-
       // AREA
       var chart1 = new Chartist.Line(".chart-area-1", {
         labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

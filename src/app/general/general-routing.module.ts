@@ -11,7 +11,7 @@ import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashb
 
 const generalRoutes = [
   {
-    path: 'kq/dashboard/home',
+    path: '',
     component: KqAdminDashboardComponent
   },
   {

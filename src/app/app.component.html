@@ -1,7 +1,11 @@
-<cat-menu-right></cat-menu-right>
-<cat-menu-left></cat-menu-left>
-<cat-top-bar></cat-top-bar>
-<div class="cat__content">
-  <router-outlet></router-outlet>
-  <cat-footer></cat-footer>
+<div *ngIf="isLoggedIn()">
+  <cat-menu-right></cat-menu-right>
+  <cat-menu-left></cat-menu-left>
+  <cat-top-bar></cat-top-bar>
 </div>
+<div [ngClass]="isLoggedIn() ? 'cat__content' : 'container'">
+  <router-outlet></router-outlet>
+  <cat-footer *ngIf="isLoggedIn()"></cat-footer>
+</div>
+
+

@@ -41,7 +41,7 @@ import {DisplaySingleImageComponent} from './display-image/display-single-image/
     KqCustomerDashboardComponent,
     KqSupplierDashboardComponent,
     KqAdminPanelDashboardComponent,
-    DisplaySingleImageComponent,
+    DisplaySingleImageComponent
   ],
   exports: [],
   providers: [
