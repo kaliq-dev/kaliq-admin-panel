@@ -9,6 +9,7 @@ import {DisplayImageModule} from '../display-image/display-image.module';
 @NgModule({
   imports: [
     CommonModule,
+
     BrandRoutingModule,
     ReactiveFormsModule,
     DisplayImageModule
