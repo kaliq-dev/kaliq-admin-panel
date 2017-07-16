@@ -1,5 +1,5 @@
 <!-- START: forms/basic-forms-elements -->
-<section class="card" *ngIf="isShowAddBrand">
+<section class="card" *ngIf="isShowBrandForm">
   <div class="card-header">
         <span class="cat__core__title">
             <strong>Add A New Brand For KALIQ.com</strong>
@@ -11,12 +11,11 @@
   <div class="alert alert-danger" role="alert" *ngIf="isNotSubmitted">Error In Creating New Brand. Please Try
     Again !!
   </div>
-<!---->
+  <!---->
   <div class="card-block">
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-
           <form [formGroup]="brandCreateEditForm">
             <!--brand name-->
             <div class="form-group row">
@@ -25,13 +24,16 @@
                 <input formControlName="name" type="text" class="form-control" placeholder="Name of the brand" id="l0">
               </div>
             </div>
-
             <!--thumbnail upload-->
             <div class="form-group row">
               <label class="col-md-3 col-form-label">Logo / Thumbnail</label>
               <div class="col-md-9">
                 <div class="col-lg-6">
                   <div class="mb-5">
+                    <div *ngIf="editMode">
+                      <app-thumb-image *ngFor="let x of brandImageList" [imageThumb]="x"></app-thumb-image>
+                    </div>
+                    <br><br>
                     <input (change)="getFile($event)" type="file" class="dropify"/>
                   </div>
                 </div>
@@ -40,7 +42,9 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
+                  <button *ngIf="editMode" type="button" class="btn btn-success pull-right"
+                          style="margin-left: 10px;" (click)="update()">Update</button>
+                  <button *ngIf="createMode" type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
                           (click)="submitForm()">Submit
                   </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
@@ -56,4 +60,5 @@
 </section>
 <!-- END: forms/basic-forms-elements -->
 <!--start of brand list component-->
-<app-kq-brand-list (onEditBrand)="editBrand($event)" (onShowAddBrand)="showAddBrand()" [newBrand]="newBrand"></app-kq-brand-list>
+<app-kq-brand-list (onEditBrand)="editBrand($event)" (onShowAddBrand)="showAddBrand()"
+                   [newBrand]="newBrand"></app-kq-brand-list>

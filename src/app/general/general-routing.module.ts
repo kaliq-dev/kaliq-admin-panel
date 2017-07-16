@@ -1,17 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {KqAdminDashboardComponent} from './dashboard/kq-admin-dashboard/kq-admin-dashboard.component';
 import {KqCategoryCreateEditComponent} from './category/kq-category-create-edit/kq-category-create-edit.component';
 import {KqSupplierCreateEditComponent} from './supplier/kq-supplier-create-edit/kq-supplier-create-edit.component';
-import {KqBrandCreateEditComponent} from './brand/kq-brand-create-edit/kq-brand-create-edit.component';
 import {KqProductCreateEditComponent} from './products/kq-product-create-edit/kq-product-create-edit.component';
 import {KqCustomerDashboardComponent} from './customer-panel/kq-customer-dashboard/kq-customer-dashboard.component';
 import {KqSupplierDashboardComponent} from './supplier-panel/kq-supplier-dashboard/kq-supplier-dashboard.component';
-import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashboard/kq-admin-panel-dashboard.component';
+import {KqAdminDashboardComponent} from './dashboard/kq-admin-dashboard/kq-admin-dashboard.component';
+
 
 const generalRoutes = [
   {
-    path: '',
+    path: 'kq/dashboard/home',
     component: KqAdminDashboardComponent
   },
   {
@@ -24,7 +23,7 @@ const generalRoutes = [
   },
   {
     path: 'kq/brand',
-    component: KqBrandCreateEditComponent
+    loadChildren: 'app/general/brand/brand.module#BrandModule'
   },
   {
     path: 'kq/product',
@@ -50,12 +49,7 @@ const generalRoutes = [
   },
   {
     path: 'kq/admin-panel',
-    children: [
-      {
-        path: 'dashboard/:slug',
-        component: KqAdminPanelDashboardComponent
-      }
-    ]
+    loadChildren: 'app/general/admin-panel/admin-panel.module#AdminPanelModule'
   }
 ];
 @NgModule({

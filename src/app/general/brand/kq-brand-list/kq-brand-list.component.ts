@@ -54,9 +54,7 @@ export class KqBrandListComponent implements OnInit {
   }
 
   showAddBrand() {
-    $(function () {
-      $('.dropify').dropify();
-    });
+
     this.onShowAddBrand.emit(true);
   }
 

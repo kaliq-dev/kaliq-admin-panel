@@ -17,6 +17,10 @@ export class UploadService {
   }
 
 
+
+
+  //-------- need to check this code -------
+
   public getFile(event: any): any[] {
     let imageList: any[] = [];
     const FileList: FileList = event.target.files;
@@ -78,7 +82,7 @@ export class UploadService {
         this.progress = Math.round(event.loaded / event.total * 100);
         this.progressObserver.next(this.progress);
       }
-    })
+    });
   }
 
   static setUploadUpdateInterval(interval: number): void {

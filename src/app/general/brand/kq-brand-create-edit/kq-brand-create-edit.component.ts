@@ -7,6 +7,8 @@ import {BrandService} from '../brand.service';
 import {Brand} from '../brand';
 import * as _ from 'underscore';
 
+declare var $: any;
+
 @Component({
   selector: 'app-kq-brand-create-edit',
   templateUrl: './kq-brand-create-edit.component.html',
@@ -16,8 +18,10 @@ export class KqBrandCreateEditComponent implements OnInit {
 
   public brandCreateEditForm: FormGroup;
 
-  public isShowAddBrand: boolean = false;
-  public isShowEditBrand: boolean = false;
+  public createMode: boolean = false;
+  public editMode: boolean = false;
+
+  public isShowBrandForm: boolean = false;
 
   public fileInput: any;
   public brandImageList: any[] = [];
@@ -33,6 +37,7 @@ export class KqBrandCreateEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createMode = true;
     this.isNotSubmitted = false;
     this.isSubmitted = false;
     this.buildForm();
@@ -46,13 +51,18 @@ export class KqBrandCreateEditComponent implements OnInit {
   }
 
   cancel() {
-    this.isShowAddBrand = false;
+    this.isShowBrandForm = false;
   }
 
   showAddBrand() {
+    $(function () {
+      $('.dropify').dropify();
+    });
+
     this.isSubmitted = false;
     this.isNotSubmitted = false;
-    this.isShowAddBrand = true;
+    this.isShowBrandForm = true;
+    this.brandImageList = [];
   }
 
   getFile(event: any) {
@@ -96,13 +106,32 @@ export class KqBrandCreateEditComponent implements OnInit {
             this.isNotSubmitted = true;
             this.isSubmitted = false;
           }
-        })
+        });
     }
   }
 
-  //edit methods
+  // edit / update methods
   editBrand(event: any) {
-    this.isShowEditBrand = true;
-    console.log(event);
+    $(function () {
+      $('.dropify').dropify();
+    });
+    this.brandImageList = [];
+    this.isShowBrandForm = true;
+    this.createMode = false;
+    this.editMode = true;
+    this.brandImageList = event.image_list;
+    this.brandCreateEditForm.patchValue({
+      name: event.name
+    });
   }
+
+  update() {
+    let data = {
+      name: this.brandCreateEditForm.value.name,
+      brandImageList: this.brandImageList
+    }
+
+    console.log(data);
+  }
+
 }

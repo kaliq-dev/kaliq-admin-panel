@@ -1,5 +1,4 @@
 import {Routes, RouterModule} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
 import {NgModule} from '@angular/core';
 
 export const appRoutes: Routes = [

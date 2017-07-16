@@ -8,8 +8,6 @@ import {KqCategoryListComponent} from './category/kq-category-list/kq-category-l
 import {KqCategoryCreateEditComponent} from './category/kq-category-create-edit/kq-category-create-edit.component';
 import {KqSupplierCreateEditComponent} from './supplier/kq-supplier-create-edit/kq-supplier-create-edit.component';
 import {KqSupplierListComponent} from './supplier/kq-supplier-list/kq-supplier-list.component';
-import {KqBrandCreateEditComponent} from './brand/kq-brand-create-edit/kq-brand-create-edit.component';
-import {KqBrandListComponent} from './brand/kq-brand-list/kq-brand-list.component';
 import {KqProductCreateEditComponent} from './products/kq-product-create-edit/kq-product-create-edit.component';
 import {UploadService} from './upload.service';
 import {BrandService} from './brand/brand.service';
@@ -19,8 +17,6 @@ import {CategoryService} from './category/category.service';
 import {ProductService} from './products/product.service';
 import {KqCustomerDashboardComponent} from './customer-panel/kq-customer-dashboard/kq-customer-dashboard.component';
 import {KqSupplierDashboardComponent} from './supplier-panel/kq-supplier-dashboard/kq-supplier-dashboard.component';
-import {KqAdminPanelDashboardComponent} from './admin-panel/kq-admin-panel-dashboard/kq-admin-panel-dashboard.component';
-import {DisplaySingleImageComponent} from './display-image/display-single-image/display-single-image.component';
 
 @NgModule({
   imports: [
@@ -30,18 +26,14 @@ import {DisplaySingleImageComponent} from './display-image/display-single-image/
   ],
   declarations: [
     KqProductListComponent,
-    KqAdminDashboardComponent,
     KqCategoryListComponent,
     KqCategoryCreateEditComponent,
     KqSupplierCreateEditComponent,
     KqSupplierListComponent,
-    KqBrandCreateEditComponent,
-    KqBrandListComponent,
     KqProductCreateEditComponent,
     KqCustomerDashboardComponent,
     KqSupplierDashboardComponent,
-    KqAdminPanelDashboardComponent,
-    DisplaySingleImageComponent
+    KqAdminDashboardComponent
   ],
   exports: [],
   providers: [
