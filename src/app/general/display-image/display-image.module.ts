@@ -7,6 +7,10 @@ import {DisplaySingleImageComponent} from './display-single-image/display-single
   imports: [
     CommonModule
   ],
+  exports: [
+    DisplaySingleImageComponent,
+    ThumbImageComponent
+  ],
   declarations: [
     ThumbImageComponent,
     DisplaySingleImageComponent

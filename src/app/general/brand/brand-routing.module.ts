@@ -4,7 +4,7 @@ import {KqBrandCreateEditComponent} from './kq-brand-create-edit/kq-brand-create
 
 const brandRoutes: Routes = [
   {
-    path: 'kq/brand',
+    path: '',
     component: KqBrandCreateEditComponent
   }
 ]
