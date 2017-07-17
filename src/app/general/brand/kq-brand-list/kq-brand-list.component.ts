@@ -27,6 +27,16 @@ export class KqBrandListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllBrands();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['newBrand'].currentValue) {
+      this.getAllBrands();
+    }
+  }
+
+  getAllBrands() {
     this.image = undefined;
     this.brandService.readAll()
       .subscribe(
@@ -47,14 +57,7 @@ export class KqBrandListComponent implements OnInit {
       )
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['newBrand'].currentValue) {
-      this.brandList.unshift(changes['newBrand'].currentValue);
-    }
-  }
-
   showAddBrand() {
-
     this.onShowAddBrand.emit(true);
   }
 

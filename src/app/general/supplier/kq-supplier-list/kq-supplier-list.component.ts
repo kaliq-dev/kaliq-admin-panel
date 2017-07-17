@@ -25,6 +25,17 @@ export class KqSupplierListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllSuppliers();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['newSupplier'].currentValue) {
+      this.getAllSuppliers();
+      // this.supplierList.unshift(changes['newSupplier'].currentValue);
+    }
+  }
+
+  getAllSuppliers() {
     this.image = undefined;
     this.supplierService.readAll()
       .subscribe(
@@ -35,12 +46,6 @@ export class KqSupplierListComponent implements OnInit {
           console.log("Error in readAll");
         }
       )
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['newSupplier'].currentValue) {
-      this.supplierList.unshift(changes['newSupplier'].currentValue);
-    }
   }
 
   showAddSupplier() {

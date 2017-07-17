@@ -4,8 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-    production: false,
-    api_server: 'http://localhost:5000/api/',
-    image_path: "/home/abrar/Work/KALIQ/uploads/"
-  }
+  production: false,
+  api_server: 'http://localhost:5000/api/',
+  // api_server: 'http://1755d0b8.ngrok.io/api/',
+  image_path: '/home/abrar/Work/KALIQ/uploads/'
+}
 

@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 8000",
+    "start:prod": "ng serve --envirnment=production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

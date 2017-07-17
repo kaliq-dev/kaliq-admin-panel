@@ -42,6 +42,7 @@ export class KqCategoryListComponent implements OnInit {
             }
             return category;
           });
+          console.log(this.categoryList);
         },
         (err) => {
           console.log("error in readAll");

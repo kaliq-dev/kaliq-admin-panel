@@ -131,7 +131,6 @@ export class KqBrandCreateEditComponent implements OnInit {
       brandImageList: this.brandImageList
     }
 
-    console.log(data);
   }
 
 }

@@ -36,7 +36,6 @@ export class KqProductListComponent implements OnInit {
     this.getProductList();
   }
 
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['newProduct'].currentValue) {
       this.getProductList();
