@@ -30,18 +30,21 @@ export class KqCategoryCreateEditComponent implements OnInit {
   public allSubCategoryList: any[] = [];
   public categoryList: any[] = [];
 
+  public onSubmitClick: boolean = false;
+
   constructor(private categoryService: CategoryService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
+    this.onSubmitClick = false;
     this.buildForm();
   }
 
   buildForm() {
     this.categoryCreateEditForm = this.fb.group({
-      parentCategory: [],
-      name: [''],
-      image: [''],
+      parentCategory: [Validators.required],
+      name: ['', Validators.required],
+      image: ['', Validators.required],
       subCategory: []
     });
   }
@@ -61,6 +64,7 @@ export class KqCategoryCreateEditComponent implements OnInit {
   }
 
   cancel() {
+    this.onSubmitClick = false;
     this.isShowAddCategory = false;
   }
 
@@ -99,6 +103,8 @@ export class KqCategoryCreateEditComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.categoryCreateEditForm.value);
+    this.onSubmitClick = true;
     if (this.categoryCreateEditForm.value.name) {
       this.uploadService.uploadFile(this.uploadRoute, this.categoryImage)
         .then((res) => {
@@ -124,6 +130,9 @@ export class KqCategoryCreateEditComponent implements OnInit {
   getFile(event: any) {
     this.fileInput = event;
     this.categoryImage = this.uploadService.getFile(this.fileInput);
+    this.categoryCreateEditForm.patchValue({
+      image: this.categoryImage
+    })
     this.progressBarVisibility = true;
   }
 

@@ -18,6 +18,10 @@
         <div class="mb-5">
           <form [formGroup]="brandCreateEditForm">
             <!--brand name-->
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="!brandCreateEditForm.controls.name.valid && this.onSubmitClick">Brand Name is
+              required
+            </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="l0">Brand Name</label>
               <div class="col-md-9">
@@ -25,6 +29,10 @@
               </div>
             </div>
             <!--thumbnail upload-->
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="brandImageList.length<=0 && this.onSubmitClick">Brand Thumbnail / Logo is
+              required
+            </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label">Logo / Thumbnail</label>
               <div class="col-md-9">

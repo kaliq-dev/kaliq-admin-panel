@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {environment} from "../../../../environments/environment";
 import {UploadService} from "../../upload.service";
@@ -23,7 +23,6 @@ declare var jQuery: any;
 export class KqProductCreateEditComponent implements OnInit {
 
   public productCreateEditForm: FormGroup;
-  public galleryImageList: any[] = [];
   public isShowAddProduct: boolean = false;
 
   public progressBarVisibility = true;
@@ -31,7 +30,6 @@ export class KqProductCreateEditComponent implements OnInit {
   public productImage: any;
 
   public fileInput: any;
-  public uploadProgress: any;
   public uploadRoute = environment.api_server + 'product/upload-image';
 
   public categoryList: Category[] = [];
@@ -42,18 +40,19 @@ export class KqProductCreateEditComponent implements OnInit {
   public isNotSubmitted = false;
 
   public newProduct: Product;
+  public onSubmitClick: boolean = false;
 
   constructor(private productService: ProductService, private categoryService: CategoryService, private brandService: BrandService, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
+    this.onSubmitClick = false;
     this.getCategoryList();
     this.getBrandList();
     this.getSupplierList();
     this.buildForm();
     this.image_list.push([]);
   }
-
 
   getCategoryList() {
     this.categoryService.readAll()
@@ -89,9 +88,9 @@ export class KqProductCreateEditComponent implements OnInit {
       category: ['', Validators.required],
       brand: ['', Validators.required],
       price: ['', Validators.required],
-      vat: [''],
+      vat: ['', Validators.required],
       sale: [''],
-      image_list: ['']
+      image_list: ['', Validators.required]
     });
   }
 
@@ -134,6 +133,7 @@ export class KqProductCreateEditComponent implements OnInit {
   }
 
   submitForm() {
+    this.onSubmitClick = true;
     if (this.productCreateEditForm.value.name) {
       _.each(this.image_list, (image) => {
         this.uploadService.uploadFile(this.uploadRoute, image)
@@ -173,6 +173,7 @@ export class KqProductCreateEditComponent implements OnInit {
   }
 
   cancel() {
+    this.onSubmitClick = false;
     this.isShowAddProduct = false;
     this.isSubmitted = false;
     this.isNotSubmitted = false;

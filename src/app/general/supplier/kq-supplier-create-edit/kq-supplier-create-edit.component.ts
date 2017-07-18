@@ -28,13 +28,15 @@ export class KqSupplierCreateEditComponent implements OnInit {
   public fileInput: any;
   public isSubmitted = false;
   public isNotSubmitted = false;
-  public uploadProgress: any;
   public uploadRoute = environment.api_server + 'supplier/upload-image';
+
+  public onSubmitClick = false;
 
   constructor(private router: Router, private supplierService: SupplierService, private fb: FormBuilder, private uploadService: UploadService) {
   }
 
   ngOnInit() {
+    this.onSubmitClick = false;
     this.isNotSubmitted = false;
     this.isSubmitted = false;
     this.buildForm();
@@ -44,8 +46,8 @@ export class KqSupplierCreateEditComponent implements OnInit {
   buildForm() {
     this.supplierCreateEditForm = this.fb.group({
       name: ['', Validators.required],
-      contact_no: [''],
-      email: [''],
+      contact_no: ['', Validators.required],
+      email: ['', Validators.required],
       supplierAttachmentList: ['']
     });
   }
@@ -85,6 +87,7 @@ export class KqSupplierCreateEditComponent implements OnInit {
   }
 
   submitForm() {
+    this.onSubmitClick = true;
     if (this.supplierCreateEditForm.value.name) {
       _.each(this.supplierAttachmentList, (attachment) => {
         this.uploadService.uploadFile(this.uploadRoute, attachment)
@@ -109,6 +112,7 @@ export class KqSupplierCreateEditComponent implements OnInit {
   }
 
   cancel() {
+    this.onSubmitClick = false;
     this.isShowAddSupplier = false;
     this.isSubmitted = false;
     this.isNotSubmitted = false;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UploadService} from "../../upload.service";
 import {environment} from '../../../../environments/environment';
@@ -33,10 +33,13 @@ export class KqBrandCreateEditComponent implements OnInit {
   public uploadProgress: any;
   public uploadRoute = environment.api_server + 'brand/upload-image';
 
+  public onSubmitClick: boolean = false;
+
   constructor(private router: Router, private fb: FormBuilder, private uploadService: UploadService, private brandService: BrandService) {
   }
 
   ngOnInit() {
+    this.onSubmitClick = false;
     this.createMode = true;
     this.isNotSubmitted = false;
     this.isSubmitted = false;
@@ -45,12 +48,13 @@ export class KqBrandCreateEditComponent implements OnInit {
 
   buildForm() {
     this.brandCreateEditForm = this.fb.group({
-      name: [''],
+      name: ['', Validators.required],
       brandImageList: ['']
     });
   }
 
   cancel() {
+    this.onSubmitClick = false;
     this.isShowBrandForm = false;
   }
 
@@ -58,7 +62,6 @@ export class KqBrandCreateEditComponent implements OnInit {
     $(function () {
       $('.dropify').dropify();
     });
-
     this.isSubmitted = false;
     this.isNotSubmitted = false;
     this.isShowBrandForm = true;
@@ -97,7 +100,8 @@ export class KqBrandCreateEditComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.brandCreateEditForm.value.name) {
+    this.onSubmitClick = true;
+    if (this.brandCreateEditForm.value.name && this.brandImageList.length > 0) {
       this.uploadService.uploadFile(this.uploadRoute, this.brandImageList)
         .then((res) => {
           if (res) {
