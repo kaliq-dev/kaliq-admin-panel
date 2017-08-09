@@ -3,6 +3,7 @@ import {BrandService} from "../brand.service";
 import {Brand} from "../brand";
 import {environment} from '../../../../environments/environment';
 import * as _ from 'underscore';
+import {GeneralService} from '../../general.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -23,7 +24,7 @@ export class KqBrandListComponent implements OnInit {
 
   public image: any;
 
-  constructor(private brandService: BrandService) {
+  constructor(private generalService: GeneralService, private brandService: BrandService) {
   }
 
   ngOnInit() {
@@ -41,15 +42,16 @@ export class KqBrandListComponent implements OnInit {
     this.brandService.readAll()
       .subscribe(
         (res) => {
-          this.brandList = res.data.map((brand) => {
-            if (brand.image_list.length > 0) {
-              brand.image_list = brand.image_list.map((item) => {
-                item = require("/home/abrar/Work/KALIQ/uploads/" + item);
-                return item;
-              });
-            }
-            return brand;
-          })
+          this.brandList = res.data;
+          this.generalService.getBase64Images({data: this.brandList})
+            .subscribe(
+              (res) => {
+                this.brandList = res.data;
+              },
+              (err) => {
+                console.log("Error in getting base64 images");
+              }
+            );
         },
         (err) => {
           console.log("Error in readAll");
@@ -78,7 +80,8 @@ export class KqBrandListComponent implements OnInit {
   }
 
   showImage(img: any) {
-    let arr = img.split(".");
-    this.image = arr[0] + '.' + arr[arr.length - 1];
+    this.image = img;
+    // let arr = img.split(".");
+    // this.image = arr[0] + '.' + arr[arr.length - 1];
   }
 }

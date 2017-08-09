@@ -85,9 +85,7 @@ export class KqBrandCreateEditComponent implements OnInit {
           if (res.data) {
             this.newBrand = res.data;
             this.brandImageList = [];
-            this.brandCreateEditForm.reset();
             this.isSubmitted = true;
-            this.router.navigate(['/kq/brand']);
           } else {
             this.isSubmitted = false;
             this.isNotSubmitted = true;
@@ -95,6 +93,10 @@ export class KqBrandCreateEditComponent implements OnInit {
         },
         (err) => {
           console.log('Error in create New Brand');
+        },
+        () => {
+          this.brandCreateEditForm.reset();
+          this.isShowBrandForm = false;
         }
       );
   }

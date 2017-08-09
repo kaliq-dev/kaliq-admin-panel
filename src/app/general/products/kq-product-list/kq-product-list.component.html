@@ -55,7 +55,7 @@
           <span style="margin-left:2px;margin-right: 2px" class="badge badge-primary"
                 *ngFor="let x of product?.image_list;let i=index">
             <span *ngIf="i<4">
-               <a href="javascript:void(0)" (click)="showImage(x)" style="color:#000;">  {{ x }}  </a>
+               <a href="javascript:void(0)" (click)="showImage(x)" style="color:#000;">  {{ x.substring(0,10) }}  </a>
             </span>
           </span>
           </span>
@@ -69,7 +69,7 @@
         <td>
           <a href="javascript: void(0);" class="cat__core__link--underlined mr-3"><i class="icmn-pencil"><!-- --></i>
             View</a>
-          <a (click)="remove(product?.id,i)"  href="javascript: void(0);"
+          <a (click)="remove(product?.id,i)" href="javascript: void(0);"
              class="cat__core__link--underlined">
             <small><i class="icmn-cross"><!-- --></i></small>
             Remove</a>

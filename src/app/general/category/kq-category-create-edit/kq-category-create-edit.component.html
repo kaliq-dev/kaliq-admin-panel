@@ -15,7 +15,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mb-5">
-          <form [formGroup]="categoryCreateEditForm">
+          <form [formGroup]="categoryCreateEditForm" (submit)="submitForm()">
             <!--category parent-->
             <div class="alert alert-danger" role="alert"
                  *ngIf="!categoryCreateEditForm.controls.parentCategory.valid && this.onSubmitClick">Category Parent is
@@ -95,8 +95,7 @@
             <div class="form-actions">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-success pull-right" style="margin-left: 10px;"
-                          (click)="submitForm()">Submit
+                  <button type="submit" class="btn btn-success pull-right" style="margin-left: 10px;">Submit
                   </button>
                   <button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel</button>
                 </div>

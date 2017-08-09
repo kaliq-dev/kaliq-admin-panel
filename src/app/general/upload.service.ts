@@ -17,10 +17,7 @@ export class UploadService {
   }
 
 
-
-
   //-------- need to check this code -------
-
   public getFile(event: any): any[] {
     let imageList: any[] = [];
     const FileList: FileList = event.target.files;
@@ -30,6 +27,8 @@ export class UploadService {
     return imageList;
   }
 
+
+  // check code here -----------------------------
   public async uploadFile(uploadRoute, imageList): Promise<any> {
     let result: any;
     if (!imageList.length) {
@@ -54,7 +53,7 @@ export class UploadService {
     return this.progress$;
   }
 
-  public upload(url: string, files: File[]): Promise<any> {
+  public async upload(url: string, files: File[]): Promise<any> {
     return new Promise((resolve, reject) => {
       let formData: FormData = new FormData();
       let xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -73,15 +72,14 @@ export class UploadService {
         }
       };
 
-      UploadService.setUploadUpdateInterval(500);
-
       xhr.open('POST', url, true);
       xhr.send(formData);
 
-      xhr.upload.onprogress = (event) => {
-        this.progress = Math.round(event.loaded / event.total * 100);
-        this.progressObserver.next(this.progress);
-      }
+      // UploadService.setUploadUpdateInterval(500);
+      // xhr.upload.onprogress = (event) => {
+      //   this.progress = Math.round(event.loaded / event.total * 100);
+      //   this.progressObserver.next(this.progress);
+      // }
     });
   }
 

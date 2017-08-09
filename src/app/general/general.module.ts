@@ -10,6 +10,7 @@ import {SupplierService} from './supplier/supplier.service';
 import {CategoryService} from './category/category.service';
 import {ProductService} from './products/product.service';
 import {DisplayImageModule} from './display-image/display-image.module';
+import {GeneralService} from './general.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {DisplayImageModule} from './display-image/display-image.module';
     CustomHttpService,
     SupplierService,
     CategoryService,
-    ProductService
+    ProductService,
+    GeneralService
   ]
 })
 export class GeneralModule {

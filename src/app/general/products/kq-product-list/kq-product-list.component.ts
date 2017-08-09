@@ -3,6 +3,7 @@ import {ProductService} from '../product.service';
 import {Product} from '../product';
 import * as _ from 'underscore';
 import {environment} from '../../../../environments/environment';
+import {GeneralService} from '../../general.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -20,7 +21,7 @@ export class KqProductListComponent implements OnInit {
   public env = environment;
   public image: any;
 
-  constructor(private productService: ProductService) {
+  constructor(private generalService: GeneralService, private productService: ProductService) {
   }
 
   ngOnInit() {
@@ -56,6 +57,15 @@ export class KqProductListComponent implements OnInit {
         (res) => {
           if (res.data) {
             this.productList = res.data;
+            this.generalService.getBase64Images({data: this.productList})
+              .subscribe(
+                (res) => {
+                  this.productList = res.data;
+                },
+                (err) => {
+                  console.log("Error in getting base64 images");
+                }
+              )
           }
         },
         (err) => {

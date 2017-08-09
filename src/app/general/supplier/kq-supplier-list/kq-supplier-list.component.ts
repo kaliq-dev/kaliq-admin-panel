@@ -3,6 +3,7 @@ import {environment} from '../../../../environments/environment';
 import {SupplierService} from '../supplier.service';
 import {Supplier} from '../supplier';
 import * as _ from 'underscore';
+import {GeneralService} from '../../general.service';
 
 declare var $: any;
 declare var jQuery: any;

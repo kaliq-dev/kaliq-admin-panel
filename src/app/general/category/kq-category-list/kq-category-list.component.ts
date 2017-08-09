@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges
 import {CategoryService} from "../category.service";
 import {Category} from "../category";
 import * as _ from 'underscore';
+import {GeneralService} from '../../general.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -21,8 +22,7 @@ export class KqCategoryListComponent implements OnInit {
 
   public image: any;
 
-
-  constructor(private categoryService: CategoryService) {
+  constructor(private generalService: GeneralService, private categoryService: CategoryService) {
   }
 
   ngOnInit() {
@@ -33,16 +33,16 @@ export class KqCategoryListComponent implements OnInit {
     this.categoryService.readAll()
       .subscribe(
         (res) => {
-          this.categoryList = res.data.map((category) => {
-            if (category['image_list'].length > 0) {
-              category['image_list'] = category['image_list'].map((item) => {
-                item = require("/home/abrar/Work/KALIQ/uploads/" + item);
-                return item;
-              });
-            }
-            return category;
-          });
-          console.log(this.categoryList);
+          this.categoryList = res.data;
+          this.generalService.getBase64Images({data: this.categoryList})
+            .subscribe(
+              (res) => {
+                this.categoryList = res.data;
+              },
+              (err) => {
+                console.log("Error in getting base64 images");
+              }
+            )
         },
         (err) => {
           console.log("error in readAll");
@@ -80,8 +80,7 @@ export class KqCategoryListComponent implements OnInit {
   }
 
   showImage(img: any) {
-    let arr = img.split(".");
-    this.image = arr[0] + '.' + arr[arr.length - 1];
+    this.image = img;
   }
 
 }

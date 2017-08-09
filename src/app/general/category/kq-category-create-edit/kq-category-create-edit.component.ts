@@ -103,9 +103,8 @@ export class KqCategoryCreateEditComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.categoryCreateEditForm.value);
     this.onSubmitClick = true;
-    if (this.categoryCreateEditForm.value.name) {
+    if (this.categoryCreateEditForm.valid) {
       this.uploadService.uploadFile(this.uploadRoute, this.categoryImage)
         .then((res) => {
           if (res) {
@@ -124,7 +123,6 @@ export class KqCategoryCreateEditComponent implements OnInit {
         });
     }
   }
-
 
   //image file upload methods
   getFile(event: any) {

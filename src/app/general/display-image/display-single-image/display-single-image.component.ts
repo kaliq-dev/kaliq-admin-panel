@@ -26,7 +26,9 @@ export class DisplaySingleImageComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!_.isUndefined(changes['image'].currentValue) && !_.isEmpty(changes['image'].currentValue)) {
-      this.img_path = require("/home/abrar/Work/KALIQ/uploads/" + changes['image'].currentValue);
+      this.img_path = changes['image'].currentValue;
+      console.log(this.img_path);
+      // this.img_path = require("/home/abrar/Work/KALIQ/uploads/" + changes['image'].currentValue);
     }
   }
 

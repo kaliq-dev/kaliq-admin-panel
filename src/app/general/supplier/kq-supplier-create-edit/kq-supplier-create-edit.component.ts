@@ -88,7 +88,7 @@ export class KqSupplierCreateEditComponent implements OnInit {
 
   submitForm() {
     this.onSubmitClick = true;
-    if (this.supplierCreateEditForm.value.name) {
+    if (this.supplierCreateEditForm.valid) {
       _.each(this.supplierAttachmentList, (attachment) => {
         this.uploadService.uploadFile(this.uploadRoute, attachment)
           .then((res) => {

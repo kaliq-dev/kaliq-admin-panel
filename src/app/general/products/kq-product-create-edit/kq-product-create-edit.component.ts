@@ -134,7 +134,7 @@ export class KqProductCreateEditComponent implements OnInit {
 
   submitForm() {
     this.onSubmitClick = true;
-    if (this.productCreateEditForm.value.name) {
+    if (this.productCreateEditForm.valid) {
       _.each(this.image_list, (image) => {
         this.uploadService.uploadFile(this.uploadRoute, image)
           .then((res) => {
